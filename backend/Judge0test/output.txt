@@ -1,0 +1,62 @@
+Code: 
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int a = 5;
+    int b = 6;
+    int c = a+b;
+    cout << "a+b = " << c << endl;
+    return 0;
+}
+{ token: '85c26421-edae-4f8e-84aa-0a07a8b4a276' }
+85c26421-edae-4f8e-84aa-0a07a8b4a276
+Token calculated: 85c26421-edae-4f8e-84aa-0a07a8b4a276
+{
+  source_code: '#include <iostream>\n' +
+    '\n' +
+    'using namespace std;\n' +
+    '\n' +
+    'int main() {\n' +
+    '    int a = 5;\n' +
+    '    int b = 6;\n' +
+    '    int c = a+b;\n' +
+    '    cout << "a+b = " << c << endl;\n' +
+    '    return 0;\n' +
+    '}',
+  language_id: 54,
+  stdin: null,
+  expected_output: null,
+  stdout: 'a+b = 11\n',
+  status_id: 3,
+  created_at: '2023-07-25T06:36:13.659Z',
+  finished_at: '2023-07-25T06:36:14.570Z',
+  time: '0.005',
+  memory: 1524,
+  stderr: null,
+  token: '85c26421-edae-4f8e-84aa-0a07a8b4a276',
+  number_of_runs: 1,
+  cpu_time_limit: '5.0',
+  cpu_extra_time: '1.0',
+  wall_time_limit: '10.0',
+  memory_limit: 128000,
+  stack_limit: 64000,
+  max_processes_and_or_threads: 60,
+  enable_per_process_and_thread_time_limit: false,
+  enable_per_process_and_thread_memory_limit: false,
+  max_file_size: 1024,
+  compile_output: null,
+  exit_code: 0,
+  exit_signal: null,
+  message: null,
+  wall_time: '0.05',
+  compiler_options: null,
+  command_line_arguments: null,
+  redirect_stderr_to_stdout: false,
+  callback_url: null,
+  additional_files: null,
+  enable_network: false,
+  status: { id: 3, description: 'Accepted' },
+  language: { id: 54, name: 'C++ (GCC 9.2.0)' }
+}
