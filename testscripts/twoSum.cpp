@@ -58,10 +58,13 @@ using namespace std;
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
+        while(1){
+        }
         unordered_map<int, int> umap;
         for(int i = 0; i<nums.size(); i++){
+            cout << nums[i] << endl;
             if(umap[target-nums[i]]){
-                return {(umap[target-nums[i]]-1), i};  
+                return {(umap[target-nums[i]]), i};  // (umap[target-nums[i]]-1)
             }
             else{
                 umap[nums[i]] = i+1;
@@ -72,8 +75,15 @@ public:
 };
 
 bool test(Solution* m, vector<int>& input, int target, int exIndex1, int exIndex2){
+    cout << "$***************************************$" << endl;
     vector<int>output = m->twoSum(input, target);
     if(!((exIndex1 == output[0] && exIndex2 == output[1])  || (exIndex2 == output[0] && exIndex1 == output[1]))){
+        cerr << "For: " << endl;
+        cerr << "[";
+        for(int i : input){
+            cerr << " " << i;
+        }
+        cerr << " ]" << endl;
         cerr << "Expected: [" << exIndex1 << "," << exIndex2 << "]" << " Got: [" << output[0] << "," << output[1] << "]" << endl;
         return false;
     }
@@ -94,6 +104,5 @@ int test_suite(Solution* m, vector<int>& i){
 int main() {
     Solution m;
     vector<int> i = {-11,1,3,5,7,9,9};
-    int result = test_suite(&m, i);
-    result == 0 ? cout << "Success" << endl : cout << "Failure" << endl;
+    return test_suite(&m, i);
 }

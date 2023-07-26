@@ -6,7 +6,7 @@ const ProcessToken = async (token) =>{
         method: 'GET',
         url: 'https://judge0-ce.p.rapidapi.com/submissions/' + token,
         params: {
-          base64_encoded: 'false',
+          base64_encoded: 'true',
           fields: '*'
         },
         headers: {
@@ -19,7 +19,7 @@ const ProcessToken = async (token) =>{
         return response.data;
     } catch (error) {
         console.log("Error in ProcessToken");
-        return error.code;
+        return error;
     }
 };
 

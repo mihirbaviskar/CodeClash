@@ -1,41 +1,74 @@
-Code: 
-#include <iostream>
-
-using namespace std;
-
-int main() {
-    int a = 5;
-    int b = 6;
-    int c = a+b;
-    cout << "a+b = " << c << endl;
-    return 0;
-}
-{ token: '85c26421-edae-4f8e-84aa-0a07a8b4a276' }
-85c26421-edae-4f8e-84aa-0a07a8b4a276
-Token calculated: 85c26421-edae-4f8e-84aa-0a07a8b4a276
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 {
-  source_code: '#include <iostream>\n' +
-    '\n' +
-    'using namespace std;\n' +
-    '\n' +
-    'int main() {\n' +
-    '    int a = 5;\n' +
-    '    int b = 6;\n' +
-    '    int c = a+b;\n' +
-    '    cout << "a+b = " << c << endl;\n' +
-    '    return 0;\n' +
-    '}',
+  source_code: 'I2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8YXJyYXk+CiNpbmNsdWRl\n' +
+    'IDxhdG9taWM+CiNpbmNsdWRlIDxjaHJvbm8+CiNpbmNsdWRlIDxjb2RlY3Z0\n' +
+    'PgojaW5jbHVkZSA8Y29uZGl0aW9uX3ZhcmlhYmxlPgojaW5jbHVkZSA8Zm9y\n' +
+    'd2FyZF9saXN0PgojaW5jbHVkZSA8ZnV0dXJlPgojaW5jbHVkZSA8aW5pdGlh\n' +
+    'bGl6ZXJfbGlzdD4KI2luY2x1ZGUgPG11dGV4PgojaW5jbHVkZSA8cmFuZG9t\n' +
+    'PgojaW5jbHVkZSA8cmF0aW8+CiNpbmNsdWRlIDxyZWdleD4KI2luY2x1ZGUg\n' +
+    'PHNjb3BlZF9hbGxvY2F0b3I+CiNpbmNsdWRlIDxzeXN0ZW1fZXJyb3I+CiNp\n' +
+    'bmNsdWRlIDx0aHJlYWQ+CiNpbmNsdWRlIDx0dXBsZT4KI2luY2x1ZGUgPHR5\n' +
+    'cGVpbmRleD4KI2luY2x1ZGUgPHR5cGVfdHJhaXRzPgojaW5jbHVkZSA8dW5v\n' +
+    'cmRlcmVkX21hcD4KI2luY2x1ZGUgPHVub3JkZXJlZF9zZXQ+CiNpbmNsdWRl\n' +
+    'IDxjb21wbGV4PgojaW5jbHVkZSA8ZGVxdWU+CiNpbmNsdWRlIDxleGNlcHRp\n' +
+    'b24+CiNpbmNsdWRlIDxmc3RyZWFtPgojaW5jbHVkZSA8ZnVuY3Rpb25hbD4K\n' +
+    'I2luY2x1ZGUgPGlvbWFuaXA+CiNpbmNsdWRlIDxpb3M+CiNpbmNsdWRlIDxp\n' +
+    'b3Nmd2Q+CiNpbmNsdWRlIDxpb3N0cmVhbT4KI2luY2x1ZGUgPGlzdHJlYW0+\n' +
+    'CiNpbmNsdWRlIDxpdGVyYXRvcj4KI2luY2x1ZGUgPGxpbWl0cz4KI2luY2x1\n' +
+    'ZGUgPGxpc3Q+CiNpbmNsdWRlIDxsb2NhbGU+CiNpbmNsdWRlIDxtYXA+CiNp\n' +
+    'bmNsdWRlIDxtZW1vcnk+CiNpbmNsdWRlIDxuZXc+CiNpbmNsdWRlIDxudW1l\n' +
+    'cmljPgojaW5jbHVkZSA8b3N0cmVhbT4KI2luY2x1ZGUgPHF1ZXVlPgojaW5j\n' +
+    'bHVkZSA8c2V0PgojaW5jbHVkZSA8c3N0cmVhbT4KI2luY2x1ZGUgPHN0YWNr\n' +
+    'PgojaW5jbHVkZSA8c3RkZXhjZXB0PgojaW5jbHVkZSA8c3RyZWFtYnVmPgoj\n' +
+    'aW5jbHVkZSA8c3RyaW5nPgojaW5jbHVkZSA8dHlwZWluZm8+CiNpbmNsdWRl\n' +
+    'IDx1dGlsaXR5PgojaW5jbHVkZSA8dmFsYXJyYXk+CiNpbmNsdWRlIDx2ZWN0\n' +
+    'b3I+CiNpbmNsdWRlIDxmdXR1cmU+CiNpbmNsdWRlIDxjaHJvbm8+CiNpbmNs\n' +
+    'dWRlIDxjYXNzZXJ0PgoKdXNpbmcgbmFtZXNwYWNlIHN0ZDsKCmNsYXNzIFNv\n' +
+    'bHV0aW9uIHsKcHVibGljOgogICAgdmVjdG9yPGludD4gdHdvU3VtKHZlY3Rv\n' +
+    'cjxpbnQ+JiBudW1zLCBpbnQgdGFyZ2V0KSB7CiAgICAgICAgdW5vcmRlcmVk\n' +
+    'X21hcDxpbnQsIGludD4gdW1hcAogICAgICAgIGZvcihpbnQgaSA9IDA7IGk8\n' +
+    'bnVtcy5zaXplKCk7IGkrKyl7CiAgICAgICAgICAgIGNvdXQgPDwgbnVtc1tp\n' +
+    'XSA8PCBlbmRsOwogICAgICAgICAgICBpZih1bWFwW3RhcmdldC1udW1zW2ld\n' +
+    'XSl7CiAgICAgICAgICAgICAgICByZXR1cm4geyh1bWFwW3RhcmdldC1udW1z\n' +
+    'W2ldXS0xKSwgaX07ICAvLyAodW1hcFt0YXJnZXQtbnVtc1tpXV0tMSkKICAg\n' +
+    'ICAgICAgICAgfQogICAgICAgICAgICBlbHNlewogICAgICAgICAgICAgICAg\n' +
+    'dW1hcFtudW1zW2ldXSA9IGkrMTsKICAgICAgICAgICAgfQogICAgICAgIH0K\n' +
+    'ICAgICAgICByZXR1cm4gey0xLC0xfTsKICAgIH0KfTsKCmJvb2wgdGVzdChT\n' +
+    'b2x1dGlvbiogbSwgdmVjdG9yPGludD4mIGlucHV0LCBpbnQgdGFyZ2V0LCBp\n' +
+    'bnQgZXhJbmRleDEsIGludCBleEluZGV4Mil7CiAgICBjb3V0IDw8ICIkKioq\n' +
+    'KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqJCIgPDwgZW5k\n' +
+    'bDsKICAgIHZlY3RvcjxpbnQ+b3V0cHV0ID0gbS0+dHdvU3VtKGlucHV0LCB0\n' +
+    'YXJnZXQpOwogICAgaWYoISgoZXhJbmRleDEgPT0gb3V0cHV0WzBdICYmIGV4\n' +
+    'SW5kZXgyID09IG91dHB1dFsxXSkgIHx8IChleEluZGV4MiA9PSBvdXRwdXRb\n' +
+    'MF0gJiYgZXhJbmRleDEgPT0gb3V0cHV0WzFdKSkpewogICAgICAgIGNlcnIg\n' +
+    'PDwgIkZvcjogIiA8PCBlbmRsOwogICAgICAgIGNlcnIgPDwgIlsiOwogICAg\n' +
+    'ICAgIGZvcihpbnQgaSA6IGlucHV0KXsKICAgICAgICAgICAgY2VyciA8PCAi\n' +
+    'ICIgPDwgaTsKICAgICAgICB9CiAgICAgICAgY2VyciA8PCAiIF0iIDw8IGVu\n' +
+    'ZGw7CiAgICAgICAgY2VyciA8PCAiRXhwZWN0ZWQ6IFsiIDw8IGV4SW5kZXgx\n' +
+    'IDw8ICIsIiA8PCBleEluZGV4MiA8PCAiXSIgPDwgIiBHb3Q6IFsiIDw8IG91\n' +
+    'dHB1dFswXSA8PCAiLCIgPDwgb3V0cHV0WzFdIDw8ICJdIiA8PCBlbmRsOwog\n' +
+    'ICAgICAgIHJldHVybiBmYWxzZTsKICAgIH0KICAgIHJldHVybiB0cnVlOwp9\n' +
+    'CgppbnQgdGVzdF9zdWl0ZShTb2x1dGlvbiogbSwgdmVjdG9yPGludD4mIGkp\n' +
+    'ewogICAgaWYoIXRlc3QobSwgaSwgNCwgMSwgMikpIHJldHVybiAxOwogICAg\n' +
+    'aWYoIXRlc3QobSwgaSwgMiwgLTEsIC0xKSkgcmV0dXJuIDE7CiAgICBpZigh\n' +
+    'dGVzdChtLCBpLCAtMTAsIDAsIDEpKSByZXR1cm4gMTsKICAgIGlmKCF0ZXN0\n' +
+    'KG0sIGksIC0yLCAwLCA1KSkgcmV0dXJuIDE7CiAgICBpZighdGVzdChtLCBp\n' +
+    'LCAyLCAtMSwgLTEpKSByZXR1cm4gMTsKICAgIGlmKCF0ZXN0KG0sIGksIDEy\n' +
+    'LCAzLCA0KSkgcmV0dXJuIDE7CiAgICBpZighdGVzdChtLCBpLCAxOCwgNSwg\n' +
+    'NikpIHJldHVybiAxOwogICAgcmV0dXJuIDA7Cn0KCmludCBtYWluKCkgewog\n' +
+    'ICAgU29sdXRpb24gbTsKICAgIHZlY3RvcjxpbnQ+IGkgPSB7LTExLDEsMyw1\n' +
+    'LDcsOSw5fTsKICAgIHJldHVybiB0ZXN0X3N1aXRlKCZtLCBpKTsKfQ==\n',
   language_id: 54,
   stdin: null,
   expected_output: null,
-  stdout: 'a+b = 11\n',
-  status_id: 3,
-  created_at: '2023-07-25T06:36:13.659Z',
-  finished_at: '2023-07-25T06:36:14.570Z',
-  time: '0.005',
-  memory: 1524,
+  stdout: null,
+  status_id: 6,
+  created_at: '2023-07-25T22:52:32.418Z',
+  finished_at: '2023-07-25T22:52:34.286Z',
+  time: null,
+  memory: null,
   stderr: null,
-  token: '85c26421-edae-4f8e-84aa-0a07a8b4a276',
+  token: 'c539be37-e7aa-426f-84c9-547cae9c5e14',
   number_of_runs: 1,
   cpu_time_limit: '5.0',
   cpu_extra_time: '1.0',
@@ -46,17 +79,141 @@ Token calculated: 85c26421-edae-4f8e-84aa-0a07a8b4a276
   enable_per_process_and_thread_time_limit: false,
   enable_per_process_and_thread_memory_limit: false,
   max_file_size: 1024,
-  compile_output: null,
-  exit_code: 0,
+  compile_output: 'bWFpbi5jcHA6IEluIG1lbWJlciBmdW5jdGlvbiDigJhzdGQ6OnZlY3Rvcjxp\n' +
+    'bnQ+IFNvbHV0aW9uOjp0d29TdW0oc3RkOjp2ZWN0b3I8aW50PiYsIGludCni\n' +
+    'gJk6Cm1haW4uY3BwOjYyOjk6IGVycm9yOiBleHBlY3RlZCBpbml0aWFsaXpl\n' +
+    'ciBiZWZvcmUg4oCYZm9y4oCZCiAgIDYyIHwgICAgICAgICBmb3IoaW50IGkg\n' +
+    'PSAwOyBpPG51bXMuc2l6ZSgpOyBpKyspewogICAgICB8ICAgICAgICAgXn5+\n' +
+    'Cm1haW4uY3BwOjYyOjI0OiBlcnJvcjog4oCYaeKAmSB3YXMgbm90IGRlY2xh\n' +
+    'cmVkIGluIHRoaXMgc2NvcGUKICAgNjIgfCAgICAgICAgIGZvcihpbnQgaSA9\n' +
+    'IDA7IGk8bnVtcy5zaXplKCk7IGkrKyl7CiAgICAgIHwgICAgICAgICAgICAg\n' +
+    'ICAgICAgICAgICBeCg==\n',
+  exit_code: null,
   exit_signal: null,
   message: null,
-  wall_time: '0.05',
-  compiler_options: null,
+  wall_time: null,
+  compiler_options: '-std=c++17',
   command_line_arguments: null,
   redirect_stderr_to_stdout: false,
   callback_url: null,
   additional_files: null,
   enable_network: false,
-  status: { id: 3, description: 'Accepted' },
+  status: { id: 6, description: 'Compilation Error' },
   language: { id: 54, name: 'C++ (GCC 9.2.0)' }
 }
+#include <iostream>
+#include <array>
+#include <atomic>
+#include <chrono>
+#include <codecvt>
+#include <condition_variable>
+#include <forward_list>
+#include <future>
+#include <initializer_list>
+#include <mutex>
+#include <random>
+#include <ratio>
+#include <regex>
+#include <scoped_allocator>
+#include <system_error>
+#include <thread>
+#include <tuple>
+#include <typeindex>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <complex>
+#include <deque>
+#include <exception>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <istream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <locale>
+#include <map>
+#include <memory>
+#include <new>
+#include <numeric>
+#include <ostream>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <streambuf>
+#include <string>
+#include <typeinfo>
+#include <utility>
+#include <valarray>
+#include <vector>
+#include <future>
+#include <chrono>
+#include <cassert>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> umap
+        for(int i = 0; i<nums.size(); i++){
+            cout << nums[i] << endl;
+            if(umap[target-nums[i]]){
+                return {(umap[target-nums[i]]-1), i};  // (umap[target-nums[i]]-1)
+            }
+            else{
+                umap[nums[i]] = i+1;
+            }
+        }
+        return {-1,-1};
+    }
+};
+
+bool test(Solution* m, vector<int>& input, int target, int exIndex1, int exIndex2){
+    cout << "$***************************************$" << endl;
+    vector<int>output = m->twoSum(input, target);
+    if(!((exIndex1 == output[0] && exIndex2 == output[1])  || (exIndex2 == output[0] && exIndex1 == output[1]))){
+        cerr << "For: " << endl;
+        cerr << "[";
+        for(int i : input){
+            cerr << " " << i;
+        }
+        cerr << " ]" << endl;
+        cerr << "Expected: [" << exIndex1 << "," << exIndex2 << "]" << " Got: [" << output[0] << "," << output[1] << "]" << endl;
+        return false;
+    }
+    return true;
+}
+
+int test_suite(Solution* m, vector<int>& i){
+    if(!test(m, i, 4, 1, 2)) return 1;
+    if(!test(m, i, 2, -1, -1)) return 1;
+    if(!test(m, i, -10, 0, 1)) return 1;
+    if(!test(m, i, -2, 0, 5)) return 1;
+    if(!test(m, i, 2, -1, -1)) return 1;
+    if(!test(m, i, 12, 3, 4)) return 1;
+    if(!test(m, i, 18, 5, 6)) return 1;
+    return 0;
+}
+
+int main() {
+    Solution m;
+    vector<int> i = {-11,1,3,5,7,9,9};
+    return test_suite(&m, i);
+}
+main.cpp: In member function ‘std::vector<int> Solution::twoSum(std::vector<int>&, int)’:
+main.cpp:62:9: error: expected initializer before ‘for’
+   62 |         for(int i = 0; i<nums.size(); i++){
+      |         ^~~
+main.cpp:62:24: error: ‘i’ was not declared in this scope
+   62 |         for(int i = 0; i<nums.size(); i++){
+      |                        ^
+
+
+
