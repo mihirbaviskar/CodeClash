@@ -19,6 +19,10 @@ const problemSchema = new Schema({
         type:String,
         required:true
     },
+    examples:{
+        type: [String],
+        required: true
+    }
 }, {timestamps: true })
 
 module.exports = mongoose.model('Problem', problemSchema)

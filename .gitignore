@@ -1,5 +1,6 @@
-.DS_store
+.DS_Store
 node_modules
 .env
 *.txt
 .vscode
+!backend/Judge0/header_file.txt

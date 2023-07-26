@@ -3,9 +3,9 @@ const ProcessToken = require('./ProcessToken');
 const decodeBase64 = require('./decodeBase64');
 const fs = require('fs').promises
 
-async function readTextFile(inputString) {
+async function readTextFile(path) {
     try {
-        const code = await fs.readFile('../../testscripts/twoSum.cpp', 'utf8');
+        const code = await fs.readFile(path, 'utf8');
         return code; // This is your text file content
     } catch (err) {
         console.error(err);
@@ -78,13 +78,7 @@ async function getResultFromInput(inputString){
         console.log(error);
     }
 }
-// const inputString = `
-// #include <iostream>
-// using namespace std;
-// int main() {
-//     cout << "Hello world" << endl;
-//     return 0;
-// }`;
+
 
 // getResultFromInput(inputString)
 // .then(response => {
@@ -96,17 +90,19 @@ async function getResultFromInput(inputString){
 
 
 
-const token = 'c539be37-e7aa-426f-84c9-547cae9c5e14';
-ProcessToken(token)
-    .then(response =>{
-        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log(response);
-        console.log(decodeBase64(response.source_code));
-        console.log(decodeBase64(response.compile_output));
-        console.log(decodeBase64(response.stdout));
-        console.log(decodeBase64(response.stderr));
-    })
-    .catch(error => console.error(error));
+// const token = '1a59e9ec-8d1b-4a4e-9f1b-486f159c9e1a';
+// ProcessToken(token)
+//     .then(response =>{
+//         console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//         console.log(response);
+//         console.log(decodeBase64(response.source_code));
+//         console.log(decodeBase64(response.compile_output));
+//         console.log(decodeBase64(response.stdout));
+//         console.log(decodeBase64(response.stderr));
+//     })
+//     .catch(error => console.error(error));
 
-module.exports = getResultFromInput;
-
+module.exports = {
+    readTextFile,
+    getResultFromInput
+}
