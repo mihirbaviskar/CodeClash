@@ -1,6 +1,6 @@
 const ProcessCode = require('./ProcessCode');
 const ProcessToken = require('./ProcessToken');
-const decodeBase64 = require('./decodeBase64');
+const {decodeBase64} = require('./decode');
 const fs = require('fs').promises
 
 async function readTextFile(path) {

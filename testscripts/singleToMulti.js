@@ -1,0 +1,2 @@
+let input = "Input: nums = [-11,1,3,5,7,9,9], target = 4\nOutput: [1,2]\nExplanation: Because nums[1] + nums[2] == 4, we return [1, 2].\nInput: nums = [-11,1,3,5,7,9,9], target = 2\nOutput: [-1,-1]\nExplanation: Because nums[1] + nums[2] == 4, we return [1, 2].";
+console.log(input);

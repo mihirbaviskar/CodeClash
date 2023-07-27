@@ -4,12 +4,12 @@ const {
     readTextFile,
     getResultFromInput
 } = require('../Judge0/Result')
+const {decodeBase64, decodeOutput} = require('../Judge0/decode');
 
 let header;
 (async () =>{
     header = await readTextFile('/Users/rasikapawar/Documents/Projects/MonacoTest/LCRacerTest/backend/Judge0/header_file.txt');
     console.log("header has been read");
-    console.log(header);
 })();
 
 // get all problems
@@ -48,12 +48,30 @@ const getProblem = async (id) => {
        throw error;
     }
 }
+const getRandDiffProblem = async (req, res) => {
+    const {diff} = req.params;
+    try{
+        const problems = await Problem.aggregate([
+            {$match: {diff: diff}},
+            {$sample: {size: 1}}
+        ]);
+        if (!problems || problems.length === 0) {
+            return res.status(404).json({ error: "No rand problem found" });
+        }
+        res.status(200).json(problems[0]);
+    }
+    catch(error){
+        res.status(500).json({error: error.message});
+    }
+}
+
+
 // post problem
 const postProblem = async(req, res) => {
     console.log("uploading problem");
-    const {title, diff, desc, testcases, examples} = req.body;
+    const {title, diff, desc, testcases, examples, starter_code} = req.body;
     try{
-        const problem = await Problem.create({title, diff, desc, testcases, examples});
+        const problem = await Problem.create({title, diff, desc, testcases, examples, starter_code});
         res.status(200).json(problem);
     } catch(error){
         console.log("Error uploading problem " + error);
@@ -62,16 +80,19 @@ const postProblem = async(req, res) => {
 }
 
 const postSubmission = async(req, res) => {
-    const {id} = req.params;
-    console.log(id);
     console.log("uploading submission");
-    const {answer} = req.body;
-    console.log(answer);
+    const {_id, code} = req.body;
+    console.log(code);
     try{
-        const problem = await getProblem(id);
-        const submission = header + answer + problem.testcases;
+        const problem = await getProblem(_id);
+        const submission = header + "\n" + code + "\n" + problem.testcases;
         console.log(submission);
         const result = await getResultFromInput(submission);
+        if (result.stdout) result.stdout = decodeOutput(decodeBase64(result.stdout));
+        if (result.stderr) result.stderr = decodeBase64(result.stderr);
+        if (result.source_code) result.source_code = decodeBase64(result.source_code);
+        if (result.compile_output) result.compile_output = decodeBase64(result.compile_output);
+        if (result.message) result.message = decodeBase64(result.message);
         res.status(200).json(result);
     } catch(error){
         console.log("Error uploading submission " + error);
@@ -96,6 +117,7 @@ const deleteProblem = async(req, res) => {
 module.exports = {
     getAllProblems,
     getProblemRoute,
+    getRandDiffProblem,
     postProblem,
     postSubmission,
     deleteProblem

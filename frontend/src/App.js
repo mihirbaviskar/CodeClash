@@ -10,7 +10,7 @@ function App() {
           <Routes>
             <Route 
               path = '/'
-              element={<Problem/>}
+              element={<Problem difficulty="easy"/>}
             />
           </Routes>
         </div>

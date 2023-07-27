@@ -58,13 +58,11 @@ using namespace std;
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        while(1){
-        }
         unordered_map<int, int> umap;
         for(int i = 0; i<nums.size(); i++){
             cout << nums[i] << endl;
             if(umap[target-nums[i]]){
-                return {(umap[target-nums[i]]), i};  // (umap[target-nums[i]]-1)
+                return {(umap[target-nums[i]]-1), i};  // (umap[target-nums[i]]-1)
             }
             else{
                 umap[nums[i]] = i+1;

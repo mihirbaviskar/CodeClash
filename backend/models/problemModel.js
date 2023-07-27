@@ -22,6 +22,10 @@ const problemSchema = new Schema({
     examples:{
         type: [String],
         required: true
+    },
+    starter_code:{
+        type: String,
+        required: true
     }
 }, {timestamps: true })
 

@@ -46,3 +46,31 @@ code {
   0% {transform: scale(1);}
   100% {transform: scale(1.1);}
 }
+
+.description-box{
+  margin: 1em;
+  border: 1px solid red;
+  color:white;
+}
+
+#description{
+  border: 5px solid orange;
+  background-color: black;
+  color:white;
+}
+
+.diff-easy{
+  color:#75f542;
+  /* border: 1px solid green; */
+}
+
+
+.diff-medium{
+  color:yellow;
+  border: 1px solid yellow;
+}
+
+.diff-hard{
+  color:red;
+  border: 1px solid red;
+}
