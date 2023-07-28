@@ -58,17 +58,8 @@ using namespace std;
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> umap;
-        for(int i = 0; i<nums.size(); i++){
-            cout << nums[i] << endl;
-            if(umap[target-nums[i]]){
-                return {(umap[target-nums[i]]-1), i};  // (umap[target-nums[i]]-1)
-            }
-            else{
-                umap[nums[i]] = i+1;
-            }
-        }
-        return {-1,-1};
+        int num = nums[nums.size()];
+        return {-1,num};
     }
 };
 
@@ -81,7 +72,7 @@ bool test(Solution* m, vector<int>& input, int target, int exIndex1, int exIndex
         for(int i : input){
             cerr << " " << i;
         }
-        cerr << " ]" << endl;
+        cerr << " ] Target: " << target << endl;
         cerr << "Expected: [" << exIndex1 << "," << exIndex2 << "]" << " Got: [" << output[0] << "," << output[1] << "]" << endl;
         return false;
     }
@@ -93,7 +84,6 @@ int test_suite(Solution* m, vector<int>& i){
     if(!test(m, i, 2, -1, -1)) return 1;
     if(!test(m, i, -10, 0, 1)) return 1;
     if(!test(m, i, -2, 0, 5)) return 1;
-    if(!test(m, i, 2, -1, -1)) return 1;
     if(!test(m, i, 12, 3, 4)) return 1;
     if(!test(m, i, 18, 5, 6)) return 1;
     return 0;

@@ -26,13 +26,13 @@ const Problem = ({difficulty}) => {
             }
         }
         fetchProblem();
-    } ,[]);
+    },[]);
     return(
         <div className="flex-container">
-            <div className="flex-item" id="description">
+            <div className="flex-item left" id="description">
                 <Description title={problem.title} diff={problem.diff} desc={problem.desc} examples={problem.examples}/>
             </div>
-            <div className="flex-item">
+            <div className="flex-item right">
                 <Editor _id={problem._id} starter_code={problem.starter_code}/>
             </div>
         </div>

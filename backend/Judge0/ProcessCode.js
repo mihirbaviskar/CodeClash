@@ -18,7 +18,7 @@ const ProcessCode = async (code) => {
         data: {
           language_id: 54,
           source_code: code,
-          compiler_options: '-std=c++17'
+          compiler_options: '-O2 -Wall -Wextra -std=c++17 -fsanitize=address -fmax-errors=10'
         }
     };
     try {
