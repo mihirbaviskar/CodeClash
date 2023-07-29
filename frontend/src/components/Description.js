@@ -1,8 +1,8 @@
-const Description = ({title, diff, desc, examples}) => {
+const Description = ({title, diff, desc, examples, constraints}) => {
     const formattedDesc = desc.replace(/\n/g, "<br />");
-    for(let i = 0; i<examples.length; i++){
-        examples[i] = examples[i].replace(/\n/g, "<br />");
-    }
+    // for(let i = 0; i<examples.length; i++){
+    //     examples[i] = examples[i].replace(/\n/g, "<br />");
+    // }
     return(
         <div className="description-box">
             <h3 className="problem-title">{title}</h3>
@@ -12,10 +12,18 @@ const Description = ({title, diff, desc, examples}) => {
                 return(
                 <div key={index}>
                     <p>Example {index+1}:</p>
-                    <p dangerouslySetInnerHTML={{ __html: example }}></p>
+                    <pre className="example">{example}</pre>
                 </div>
                 )
             })}
+            <p>Constraints:</p>
+            <ul className="constraint-list">
+                {constraints.map((constraint, index) => {
+                    return(
+                        <li key={index}><code>{constraint}</code></li>
+                    );
+                })}
+            </ul>
         </div>
     );
 }

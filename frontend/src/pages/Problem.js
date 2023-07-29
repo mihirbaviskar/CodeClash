@@ -9,6 +9,7 @@ const Problem = ({difficulty}) => {
         diff:"",
         desc:"",
         examples:[],
+        constraints:[],
         starter_code:""
     });
     useEffect(() => {
@@ -30,7 +31,7 @@ const Problem = ({difficulty}) => {
     return(
         <div className="flex-container">
             <div className="flex-item left" id="description">
-                <Description title={problem.title} diff={problem.diff} desc={problem.desc} examples={problem.examples}/>
+                <Description title={problem.title} diff={problem.diff} desc={problem.desc} examples={problem.examples} constraints={problem.constraints}/>
             </div>
             <div className="flex-item right">
                 <Editor _id={problem._id} starter_code={problem.starter_code}/>

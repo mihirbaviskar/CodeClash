@@ -57,40 +57,44 @@ using namespace std;
 
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        int num = nums[nums.size()];
-        return {-1,num};
+    bool palindromeChecker(string input) {
+        string clean_s = "";
+        for(char c : input){
+            if(isalnum(c))   clean_s+=tolower(c);
+        }
+        input = clean_s;
+        int l = 0;
+        int r = input.length()-1;
+        for(int i = 0; i<(input.length()/2); i++){
+            if(input[l+i]!=input[r-i]) return false;
+        }
+        return true;
     }
 };
 
-bool test(Solution* m, vector<int>& input, int target, int exIndex1, int exIndex2){
+bool test(Solution* m, string input, bool expected){
     cout << "$***************************************$" << endl;
-    vector<int>output = m->twoSum(input, target);
-    if(!((exIndex1 == output[0] && exIndex2 == output[1])  || (exIndex2 == output[0] && exIndex1 == output[1]))){
-        cerr << "For: " << endl;
-        cerr << "[";
-        for(int i : input){
-            cerr << " " << i;
-        }
-        cerr << " ] Target: " << target << endl;
-        cerr << "Expected: [" << exIndex1 << "," << exIndex2 << "]" << " Got: [" << output[0] << "," << output[1] << "]" << endl;
-        return false;
+    bool got = m->palindromeChecker(input);
+    if(got == expected) return true;
+    cerr << "Input: " << input << endl;
+    if(expected){
+        cerr << "Expected: true" << endl;
+        cerr << "Got: false" << got << endl;
     }
-    return true;
-}
-
-int test_suite(Solution* m, vector<int>& i){
-    if(!test(m, i, 4, 1, 2)) return 1;
-    if(!test(m, i, 2, -1, -1)) return 1;
-    if(!test(m, i, -10, 0, 1)) return 1;
-    if(!test(m, i, -2, 0, 5)) return 1;
-    if(!test(m, i, 12, 3, 4)) return 1;
-    if(!test(m, i, 18, 5, 6)) return 1;
-    return 0;
+    else{
+        cerr << "Expected: false" << endl;
+        cerr << "Got: true" << endl;
+    }
+    return false;
 }
 
 int main() {
     Solution m;
-    vector<int> i = {-11,1,3,5,7,9,9};
-    return test_suite(&m, i);
+    if(!test(&m, "radar", true)) return 1;
+    if(!test(&m, "racecar", true)) return 1;
+    if(!test(&m, "12321", true)) return 1;
+    if(!test(&m, "2", true)) return 1;
+    if(!test(&m, "Able was I ere I saw Elba", true)) return 1;
+    if(!test(&m, "algorithm", false)) return 1;
+    return 0;
 }

@@ -40,7 +40,7 @@ const getProblem = async (id) => {
         }
         const problem = await Problem.findById(id);
         if(!problem){
-            throw new Error("Error no such workout");
+            throw new Error("Error no such problem");
         }
         return problem;
     }
@@ -69,9 +69,9 @@ const getRandDiffProblem = async (req, res) => {
 // post problem
 const postProblem = async(req, res) => {
     console.log("uploading problem");
-    const {title, diff, desc, testcases, examples, starter_code} = req.body;
+    const {title, diff, desc, testcases, examples, constraints, starter_code} = req.body;
     try{
-        const problem = await Problem.create({title, diff, desc, testcases, examples, starter_code});
+        const problem = await Problem.create({title, diff, desc, testcases, examples, constraints, starter_code});
         res.status(200).json(problem);
     } catch(error){
         console.log("Error uploading problem " + error);
@@ -109,10 +109,28 @@ const deleteProblem = async(req, res) => {
     }
     const problem = await Problem.findByIdAndDelete(id);
     if(!problem){
-        return res.status(404).json({error: "Error no such workout"});
+        return res.status(404).json({error: "Error no such problem"});
     }
     res.status(200).json(problem);
 }
+
+
+const updateProblem = async (req, res) => {
+    console.log("patching problem");
+    const {id} = req.params;
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: "Invalid id"});
+    }
+    const problem = await Problem.findOneAndUpdate({_id:id},{
+        ...req.body
+    });
+    if(!problem){
+        return res.status(400).json({error: "No such problem"});
+    }
+    res.status(200).json(problem);
+}
+
+
 
 module.exports = {
     getAllProblems,
@@ -120,5 +138,6 @@ module.exports = {
     getRandDiffProblem,
     postProblem,
     postSubmission,
-    deleteProblem
+    deleteProblem,
+    updateProblem
 }

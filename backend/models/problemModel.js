@@ -23,6 +23,10 @@ const problemSchema = new Schema({
         type: [String],
         required: true
     },
+    constraints:{
+        type: [String],
+        required: true
+    },
     starter_code:{
         type: String,
         required: true

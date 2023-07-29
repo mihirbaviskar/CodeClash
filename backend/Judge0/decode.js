@@ -5,7 +5,7 @@ const decodeBase64 = (base64String) => {
 
 const decodeOutput = (stdout) => {
     let lastOccurrence = stdout.lastIndexOf("$***************************************$");
-    let result = stdout.substring(lastOccurrence + "$***************************************$".length+2);
+    let result = stdout.substring(lastOccurrence + "$***************************************$".length+1);
     return result;
 }
 
