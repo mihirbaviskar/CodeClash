@@ -126,6 +126,7 @@ button.submit.disabled:hover{
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
+  white-space: pre-wrap;
 }
 
 .diff-easy{
@@ -177,10 +178,16 @@ button.submit.disabled:hover{
 .compiler-error-output{
   padding: 10px;
   border-radius: 5px;
-  margin: 5px;
+  margin:5px;
   background-color: rgba(255, 0, 0,0.1);
   color:rgb(255, 51, 0);
   font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.submission-status{
+  position: relative;
+  left: 10px;
 }
 
 .editor-container{
