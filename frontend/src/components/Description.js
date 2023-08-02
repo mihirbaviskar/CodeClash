@@ -18,7 +18,7 @@ const Description = ({title, diff, desc, examples, constraints}) => {
             })}
             <p>Constraints:</p>
             <ul className="constraint-list">
-                {constraints.map((constraint, index) => {
+                {constraints && constraints.map((constraint, index) => {
                     return(
                         <li key={index}><code>{constraint}</code></li>
                     );

@@ -5,15 +5,18 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Mihir Baviskar",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongoose": "^7.4.1"
+    "mongoose": "^7.4.1",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.1"
   }
 }

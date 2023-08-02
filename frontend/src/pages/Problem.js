@@ -12,9 +12,14 @@ const Problem = ({difficulty}) => {
         constraints:[],
         starter_code:""
     });
+    const [accepted, setAccepted] = useState(false);
+    const [reload, setReload] = useState(false);
     useEffect(() => {
+        setAccepted(false);
+        console.log(difficulty);
         const fetchProblem = async () => {
-            const response = await fetch('/api/problems/random/' + difficulty);
+            // difficulty[Math.floor(Math.random()*difficulty.length)]
+            const response = await fetch('/api/problems/random/' + 'easy');
             const json = await response.json()
             if(response.ok){
                 console.log("Json");
@@ -27,14 +32,14 @@ const Problem = ({difficulty}) => {
             }
         }
         fetchProblem();
-    },[]);
+    },[reload]);
     return(
         <div className="flex-container">
             <div className="flex-item left" id="description">
                 <Description title={problem.title} diff={problem.diff} desc={problem.desc} examples={problem.examples} constraints={problem.constraints}/>
             </div>
             <div className="flex-item right">
-                <Editor _id={problem._id} starter_code={problem.starter_code}/>
+                <Editor _id={problem._id} starter_code={problem.starter_code} accepted={accepted} setAccepted={setAccepted} setReload={setReload}/>
             </div>
         </div>
     );

@@ -1,5 +1,4 @@
 const express = require('express');
-const Problem = require('../models/problemModel');
 const router = express.Router();
 const {
     getAllProblems,

@@ -65,6 +65,24 @@ const getRandDiffProblem = async (req, res) => {
     }
 }
 
+const retRandProblems = async (diffs, numProblems) => {
+    try {
+        const problems = await Problem.aggregate([
+            {$match: {diff: {$in: diffs}}},
+            {$sample: {size: numProblems}},
+            {$project: {_id: 1}}
+        ]);
+        if (!problems || problems.length === 0) {
+            return ({ error: "No problems found" });
+        }
+        return problems;
+    } catch (error) {
+        return ({ error: `Error: no problems found for difficulties ${diffs}` });
+    }
+}
+
+
+
 
 // post problem
 const postProblem = async(req, res) => {
@@ -139,5 +157,6 @@ module.exports = {
     postProblem,
     postSubmission,
     deleteProblem,
-    updateProblem
+    updateProblem,
+    retRandProblems
 }

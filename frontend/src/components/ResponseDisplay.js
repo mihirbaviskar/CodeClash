@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 
-const ResponseDisplay = ({ response }) => {
+const ResponseDisplay = ({ response, setAccepted}) => {
   useEffect(() => {
-    console.log("Response in ResponseDisplay");
-    console.log(response);
+    if(response && response.status.id === 3){
+      console.log("Accepted setting accepted to true");
+      setAccepted(true);
+    }
   }, [response]);
 
   if (!response) {
@@ -11,6 +13,7 @@ const ResponseDisplay = ({ response }) => {
   }
 
   let descriptionStyle = response.status.id === 3 ? {color:'#2cbb5d'} : {color:'#ef4643'};
+
   return (
     <div className="response-display">
       {response.exit_code !==153 && response.status.description && <h3 className="submission-status" style={descriptionStyle}>{response.status.description}</h3>}
