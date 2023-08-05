@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
     //diffs, size, username, socket_id
     socket.on("create room", async ({diffs, num_players, username}) => {
         console.log("Creating the room");
+        console.log({diffs, num_players, username});
         const {user, room} = await createRoom({diffs, num_players, username, socket_id: socket.id});
         if(room.error){
             console.log(room);
@@ -54,7 +55,11 @@ io.on('connection', (socket) => {
             socket.to(room.room_name).emit('new user joining room', {user, room});
         }
     })
-
+    socket.on('game solve message', (user) => {
+        console.log("GOT GAME SOLVE MESSAGE");
+        console.log(user);
+        io.in(user.room_name).emit('user solved problem', user);
+    });
     socket.on('disconnect', async () => {
         console.log('Disconnecting user');
         const user = await deleteUser({socket_id:socket.id});

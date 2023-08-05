@@ -3,7 +3,7 @@ import { SocketContext} from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { RoomContext } from "../context/RoomContext";
-const JoinRoom = () => {
+const JoinRoom = ({setLoading}) => {
 
     
     const socket = useContext(SocketContext);
@@ -18,7 +18,8 @@ const JoinRoom = () => {
         socket.on('error join room', (message) => {
             console.log(message);
             setError(message.error);
-            setErrorFields(message.errorFields)
+            setErrorFields(message.errorFields);
+            setLoading(false);
         })
         socket.on('success join room', ({user, room}) => {
             userDispatch({
@@ -43,25 +44,29 @@ const JoinRoom = () => {
                     problem_ids: room.problem_ids,
                     room_state: room.room_state
                 }
-            })
+            });
+            setLoading(false);
             navigate('/waitingroom');
         })
     }, [])
 
     const handleJoinRoom = async (e) => {
         e.preventDefault();
+        setLoading(true);
         console.log(username);
         console.log(room_name);
         socket.emit("join room", {username, room_name});
     }
     return(
-        <form onSubmit={handleJoinRoom}>
-            <label>Room #:</label>
-            <input type="text" className={errorFields.includes('room_name') ? 'error' : '' }onChange={(e) => setRoomName(e.target.value)} value={room_name}/>
-            <label>Name:</label>
-            <input type="text" className={errorFields.includes('username') ? 'error' : '' } onChange={(e) => setUsername(e.target.value)} value={username}/>
-            <button>Submit</button>
-            {error && <div className="error">{error}</div>}
+        <form className="room-form" onSubmit={handleJoinRoom}>
+            <div className={errorFields.includes('room_name') ? 'error room-item room-input' : 'room-item room-input' }>
+                <input type="text" placeholder="Room #" onChange={(e) => setRoomName(e.target.value)} value={room_name} maxLength="8"/>
+            </div>
+            <div className={errorFields.includes('username') ? 'error room-item room-input' : 'room-item room-input' }>
+                <input type="text" placeholder="Name" onChange={(e) => setUsername(e.target.value)} value={username} maxLength="8"/>
+            </div>
+            <button className="room-item">Join Room</button>
+            {error && <div className="error-msg">{error}</div>}
         </form>
     );
 }

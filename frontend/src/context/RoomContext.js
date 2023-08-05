@@ -15,6 +15,15 @@ export const roomReducer = (state, action) => {
             return {
                 ...state, user_ids: action.payload.user_ids, room_state: action.payload.room_state
             };
+        case 'UPDATE_USER':
+            console.log("Updating a particular user of the room");
+            console.log(action.payload);
+            return {
+                ...state,
+                user_ids: state.user_ids.map((user) =>
+                  user._id === action.payload._id ? action.payload : user
+                )
+            };
         default:
             return state;
     }

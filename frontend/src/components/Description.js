@@ -1,8 +1,5 @@
 const Description = ({title, diff, desc, examples, constraints}) => {
     const formattedDesc = desc.replace(/\n/g, "<br />");
-    // for(let i = 0; i<examples.length; i++){
-    //     examples[i] = examples[i].replace(/\n/g, "<br />");
-    // }
     return(
         <div className="description-box">
             <h3 className="problem-title">{title}</h3>
@@ -16,7 +13,8 @@ const Description = ({title, diff, desc, examples, constraints}) => {
                 </div>
                 )
             })}
-            <p>Constraints:</p>
+            
+            {constraints.length!==0 && <p>Constraints:</p>}
             <ul className="constraint-list">
                 {constraints && constraints.map((constraint, index) => {
                     return(

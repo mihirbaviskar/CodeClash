@@ -11,9 +11,13 @@ import CreateRoom from './components/CreateRoom';
 import { UserContextProvider } from './context/UserContext';
 import WaitingRoom from './pages/WaitingRoom';
 import { RoomContextProvider } from './context/RoomContext';
+import Box from './components/Box';
+import LandingPage from './pages/LandingPage';
+import Arcade from './components/Arcade';
+import GameLeaderboard from './components/GameLeaderboard';
+import Finish from './pages/Finish';
 const socket = io.connect("http://localhost:4000");
 function App() {
-
   useEffect(() => {
     console.log(socket);
     socket.emit("send message", "A new user has joined");
@@ -36,21 +40,22 @@ function App() {
                 <Routes>
                   <Route 
                     path = '/problem'
-                    element={<Problem difficulty={["easy", "medium", "hard"]}/>}
+                    element={<Problem/>}
                   />
-                  <Route 
+                  <Route
                     path = '/'
-                    element={
-                    <>
-                      <CreateRoom/>
-                      <JoinRoom/>
-                    </>
+                    element={<LandingPage/>
                   }
                   />
-                  <Route 
+                  <Route
                     path = '/waitingroom'
                     element={<WaitingRoom/>}
                   />
+                  <Route
+                    path = '/finish'
+                    element={
+                     <Finish/>
+                    }/>
                 </Routes>
               </RoomContextProvider>
             </UserContextProvider>

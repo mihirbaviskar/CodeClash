@@ -27,6 +27,9 @@ const createRoom = async ({diffs, num_players, username, socket_id}) =>{
     if(!username) {
         errorFields.push('username');
     }
+    if(!num_players) {
+        errorFields.push('num_players');
+    }
     if(errorFields.length > 0 ){
         return {user: null, room: { error: 'Please fill in all the fields', errorFields }};
     }
