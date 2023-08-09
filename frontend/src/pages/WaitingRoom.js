@@ -85,7 +85,14 @@ const WaitingRoom = () => {
     if(countdown){
         return <div className="countdown">{countdown}</div>;
     }
-
+    const waiting_component = () => {
+        return (
+            <div className="waiting-container">
+                <p className="waiting">Waiting for {room.num_players-room.user_ids.length} more</p>
+                <div className="dot-flashing-container"><div class="dot-flashing"></div></div>
+            </div>
+        )
+    };
     return(
         <div className="waiting-room-container">
             {/* <h1>Waiting Room</h1>
@@ -93,7 +100,7 @@ const WaitingRoom = () => {
             <table className="user-table">
                 <thead>
                     <tr>
-                        <td id="user-table-header">Users</td>
+                        <td id="user-table-header">Players</td>
                     </tr>
                 </thead>
                 {room.user_ids && room.user_ids.map((user) => (
@@ -103,7 +110,8 @@ const WaitingRoom = () => {
                 ))}
             </table>
             <div className="waiting-status">
-                {room && room.room_state === 'waiting' ? <p className="waiting">Waiting for {room.num_players-room.user_ids.length} more</p> : <p>In Progress</p>}
+                
+                {room && room.room_state === 'waiting' ? waiting_component() : <p>In Progress</p>}
                 <div className="room-name-container">
                     <p className="room-name">Room name: {room.room_name}</p>
                     <button onClick={() => {navigator.clipboard.writeText(room.room_name)}}>Copy</button>

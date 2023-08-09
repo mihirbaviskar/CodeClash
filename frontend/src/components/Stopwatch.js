@@ -5,11 +5,13 @@ import { UserContext } from "../context/UserContext";
 const Stopwatch = () => {
     const {room} = useContext(RoomContext);
     const startTimeRef = useRef(null);
+    const absStartTimeRef = useRef(null);
     const {user, elapsedTime, setElapsedTime} = useContext(UserContext);
 
     useEffect(() => {
         const d = new Date();
         startTimeRef.current = (Math.floor(d.getTime()/1000));
+        absStartTimeRef.current = (Math.floor(d.getTime()/1000));
     }, []);
 
 
@@ -17,9 +19,9 @@ const Stopwatch = () => {
         let interval = setInterval(() => {
             const d = new Date();
             const new_val = Math.floor(d.getTime()/1000) - startTimeRef.current;
-            console.log('start: ' + startTimeRef.current);
-            console.log('curr: ' + Math.floor(d.getTime()/1000));
-            console.log('New val: ' + new_val);
+            // console.log('start: ' + startTimeRef.current);
+            // console.log('curr: ' + Math.floor(d.getTime()/1000));
+            // console.log('New val: ' + new_val);
             setElapsedTime(new_val);
         }, 1000);
 

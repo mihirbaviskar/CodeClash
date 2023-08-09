@@ -16,10 +16,9 @@ const JoinRoom = ({setLoading}) => {
     const navigate = useNavigate();
     useEffect(() => {
         socket.on('error join room', (message) => {
-            console.log(message);
-            setError(message.error);
-            setErrorFields(message.errorFields);
             setLoading(false);
+            setError(message.error);
+            setErrorFields(message.errorFields);            
         })
         socket.on('success join room', ({user, room}) => {
             userDispatch({

@@ -21,9 +21,12 @@ const CreateRoom = ({setLoading}) => {
     const navigate = useNavigate();
     useEffect(() => {
         socket.on('error create room', (message) => {
+            setLoading(false);
+            console.log(message);
             setError(message.error);
             setErrorFields(message.errorFields);
-            setLoading(false);
+            console.log(error);
+            console.log(errorFields);
         })
         socket.on('success create room', ({user, room}) => {
             userDispatch({
@@ -62,11 +65,11 @@ const CreateRoom = ({setLoading}) => {
 
     const handleCreateRoom = async (e) => {
         e.preventDefault();
-        setLoading(true);
         console.log(`${username} is joining a room with ${num_players}`);
         const selectedDifficulties = Object.keys(diffs).filter(diff => diffs[diff]);
         console.log(selectedDifficulties);
         socket.emit("create room", {username, diffs:selectedDifficulties, num_players});
+        setLoading(true);
     }
     return(
         <form className="room-form" onSubmit={handleCreateRoom}>

@@ -34,11 +34,13 @@ export const UserContextProvider = ({children}) => {
         username: null,
         room_name: null,
         score: 0,
-        current_problem: 1
+        current_problem: 1,
     });
     const [elapsedTime, setElapsedTime] = useState(0);
+    const [place, setPlace] = useState(1);
+    const [money, setMoney] = useState(0);
     return(
-        <UserContext.Provider value={{user, dispatch, elapsedTime, setElapsedTime}}>
+        <UserContext.Provider value={{user, dispatch, elapsedTime, setElapsedTime, place, setPlace, money, setMoney}}>
              {children}
         </UserContext.Provider>
     )

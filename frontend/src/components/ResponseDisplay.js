@@ -4,7 +4,7 @@ import { SocketContext } from "../context/SocketContext";
 import LoadingSpinner from "./LoadingSpinner";
 
 
-const ResponseDisplay = ({ response, accepted, setAccepted, loading}) => {
+const ResponseDisplay = ({ response, accepted, setAccepted, loading, freeze, bomb}) => {
   const {user, dispatch: userDispatch, elapsedTime} = useContext(UserContext);
   const [runTimeScore, setRunTimeScore] = useState(0);
   const [memScore, setMemScore] = useState(0);
@@ -14,12 +14,12 @@ const ResponseDisplay = ({ response, accepted, setAccepted, loading}) => {
       console.log("Accepted setting accepted to true");
       let calc_runTimeScore = 0;
       if(response.status.id === 3 && response.wall_time){
-        calc_runTimeScore = Math.floor(5/response.wall_time);
+        calc_runTimeScore = Math.floor(66.5465/((0.227969*response.wall_time) + 0.218194));
         setRunTimeScore(calc_runTimeScore);
       }
       let calc_memScore = 0;
       if(response.status.id === 3 && response.memory){
-        calc_memScore = Math.floor(128000/response.memory);
+        calc_memScore = Math.floor(505.524* Math.exp(-0.0000659178*response.memory));
         setMemScore(calc_memScore);
       }
       let calc_solveTime = Math.floor(486.645/((0.00225299*elapsedTime)+1.62215))
@@ -40,7 +40,7 @@ const ResponseDisplay = ({ response, accepted, setAccepted, loading}) => {
 
   if(loading){
     return (
-      <div className="response-display">
+      <div className={`response-display ${freeze ? 'freeze-response-display' : ''} ${bomb ? 'bomb-response-display' : ''}`}>
         <LoadingSpinner/>
       </div>
     );
@@ -53,7 +53,7 @@ const ResponseDisplay = ({ response, accepted, setAccepted, loading}) => {
   let descriptionStyle = response.status.id === 3 ? {color:'#2cbb5d'} : {color:'#ef4643'};
 
   return (
-    <div className="response-display">
+    <div className={`response-display ${freeze ? 'freeze-response-display' : ''} ${bomb ? 'bomb-response-display' : ''}`}>
       {response.exit_code !==153 && response.status.description && <h3 className="submission-status" style={descriptionStyle}>{response.status.description}</h3>}
       {response.exit_code === 153 && <h3 style={descriptionStyle}>Memory Limit Exceeded</h3>}
       {response.status.id === 6 && response.compile_output && <pre className="compiler-error-output">{response.compile_output}</pre>}

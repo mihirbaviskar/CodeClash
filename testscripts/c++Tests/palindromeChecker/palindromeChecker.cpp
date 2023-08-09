@@ -79,7 +79,7 @@ bool test(Solution* m, string input, bool expected){
     cerr << "Input: " << input << endl;
     if(expected){
         cerr << "Expected: true" << endl;
-        cerr << "Got: false" << got << endl;
+        cerr << "Got: false" << endl;
     }
     else{
         cerr << "Expected: false" << endl;

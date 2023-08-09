@@ -60,6 +60,17 @@ io.on('connection', (socket) => {
         console.log(user);
         io.in(user.room_name).emit('user solved problem', user);
     });
+
+    socket.on("send powerup", ({socket_id, powerup_name, send_user, rec_user, room_name}) => {
+        console.log(socket_id);
+        console.log(powerup_name);
+        io.to(socket_id).emit('rec powerup', powerup_name);
+        const message = `${send_user} used ${powerup_name} on ${rec_user}`;
+        console.log(message);
+        console.log(room_name);
+        io.in(room_name).emit('user used powerup', message);
+    })
+
     socket.on('disconnect', async () => {
         console.log('Disconnecting user');
         const user = await deleteUser({socket_id:socket.id});

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
 // pages & components
 import Problem from './pages/Problem';
@@ -6,16 +6,16 @@ import NavBar from './components/NavBar';
 import {io} from 'socket.io-client';
 import { useEffect } from 'react';
 import { SocketContext } from './context/SocketContext';
-import JoinRoom from './components/JoinRoom';
-import CreateRoom from './components/CreateRoom';
+
 import { UserContextProvider } from './context/UserContext';
 import WaitingRoom from './pages/WaitingRoom';
 import { RoomContextProvider } from './context/RoomContext';
-import Box from './components/Box';
+
 import LandingPage from './pages/LandingPage';
-import Arcade from './components/Arcade';
-import GameLeaderboard from './components/GameLeaderboard';
 import Finish from './pages/Finish';
+
+import LearnMore from './pages/LearnMore'
+import { MessageContextProvider } from './context/MessageContext';
 const socket = io.connect("http://localhost:4000");
 function App() {
   useEffect(() => {
@@ -32,16 +32,17 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar/>
+        <Link to='/'><NavBar/></Link>
         <div className="pages">
           <SocketContext.Provider value = {socket}>
             <UserContextProvider>
               <RoomContextProvider>
+              <MessageContextProvider>
                 <Routes>
-                  <Route 
-                    path = '/problem'
-                    element={<Problem/>}
-                  />
+                    <Route 
+                      path = '/problem'
+                      element={<Problem/>}
+                    />
                   <Route
                     path = '/'
                     element={<LandingPage/>
@@ -56,7 +57,13 @@ function App() {
                     element={
                      <Finish/>
                     }/>
+                    <Route
+                    path = '/learn-more'
+                    element={
+                      <LearnMore/>
+                    }/>
                 </Routes>
+                </MessageContextProvider>
               </RoomContextProvider>
             </UserContextProvider>
           </SocketContext.Provider>

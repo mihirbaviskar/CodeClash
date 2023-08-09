@@ -19,14 +19,16 @@ const Problem = () => {
         starter_code:""
     });
     const socket = useContext(SocketContext);
-    const {user, dispatch: userDispatch} = useContext(UserContext);
-    const {room, dispatch: roomDispatch} = useContext(RoomContext);
+    const {user} = useContext(UserContext);
+    const {room} = useContext(RoomContext);
     const [accepted, setAccepted] = useState(false);
     const [reload, setReload] = useState(false);
+    const [freeze, setFreeze] = useState(false);
+    const [bomb, setBomb] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         setAccepted(false);
-        if(user && user.current_problem > 1){   // if(user && user.current_problem > room.num_problems){ 
+        if(user && user.current_problem > room.num_problems){
             console.log('player has finished');
             navigate('/finish');
         }
@@ -36,7 +38,6 @@ const Problem = () => {
             if(response.ok){
                 console.log("Json");
                 console.log(json);
-                console.log(json._id);
                 setProblem(json);
             }
             else{
@@ -54,19 +55,42 @@ const Problem = () => {
             socket.emit('game solve message', user);
         }
     }, [accepted]);
+    
+    useEffect(() => {
+        socket.on('rec powerup', (powerup_name) => {
+            console.log('received ' + powerup_name);
+            switch (powerup_name) {
+                case "Freeze":
+                    setFreeze(true);
+                    console.log("In case freeze");
+                    setTimeout(() => {
+                        setFreeze(false);
+                    }, 30000)
+                    break;
+                case "Bomb":
+                    setBomb(true);
+                    console.log("In case bomb");
+                    setTimeout(() => {
+                        setBomb(false);
+                    }, 1000)
+                    break;
+                default:
+                    break;
+            }
+        });
+    }, []);
 
-
-    if(!room || !(room.room_state === 'in progress')){
-        return (<p>You are not part of this room or you disconnected</p>);
-    }
+    // if(!room || !(room.room_state === 'in progress')){
+    //     return (<p>You are not part of this room or you disconnected</p>);
+    // }
     return(
         <div className="flex-container">
-            <div className="flex-item left" id="description">
-                <Description title={problem.title} diff={problem.diff} desc={problem.desc} examples={problem.examples} constraints={problem.constraints}/>
-                <Arcade/>
+            <div className={`flex-item left ${freeze ? 'freeze-desc' : ''} ${bomb ? 'bomb-desc' : ''}`} id="description">
+                <Description title={problem.title} diff={problem.diff} desc={problem.desc} examples={problem.examples} constraints={problem.constraints} freeze={freeze} bomb={bomb}/>
+                <Arcade freeze={freeze} bomb={bomb}/>
             </div>
             <div className="flex-item right">
-                <Editor _id={problem._id} starter_code={problem.starter_code} accepted={accepted} setAccepted={setAccepted} setReload={setReload}/>
+                <Editor _id={problem._id} starter_code={problem.starter_code} accepted={accepted} setAccepted={setAccepted} setReload={setReload} freeze={freeze} bomb={bomb}/>
             </div>
         </div>
     );

@@ -95,7 +95,7 @@ const FinishGameLeaderboard = () => {
         <div className="leaderboard-finish-container">
             <div className="leaderboard leaderboard-finish">
                 {room.user_ids && room.user_ids.length !==0 && room.user_ids.map((user, index) => (
-                        <Box rank={index+1} username={user.username} score={user.score}/>
+                        <Box rank={index+1} username={user.username} score={user.score} socket_id={user.socket_id}/>
                 ))}
             </div>
             {place && <p className="finish-message">{place}{placeString}</p>}
