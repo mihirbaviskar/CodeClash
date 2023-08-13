@@ -11,7 +11,7 @@ const ResponseDisplay = ({ response, accepted, setAccepted, loading, freeze, bom
   const [solveTimeScore, setSolveTimeScore] = useState(0);
   useEffect(() => {
     if(response && !accepted && response.status.id === 3){
-      console.log("Accepted setting accepted to true");
+      // console.log("Accepted setting accepted to true");
       let calc_runTimeScore = 0;
       if(response.status.id === 3 && response.wall_time){
         calc_runTimeScore = Math.floor(66.5465/((0.227969*response.wall_time) + 0.218194));
@@ -33,7 +33,7 @@ const ResponseDisplay = ({ response, accepted, setAccepted, loading, freeze, bom
           score: new_score
         }
       })
-      console.log('accepting in response display');
+      // console.log('accepting in response display');
       setAccepted(true);
     }
   }, [response]);

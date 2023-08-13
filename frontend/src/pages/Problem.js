@@ -29,19 +29,19 @@ const Problem = () => {
     useEffect(() => {
         setAccepted(false);
         if(user && user.current_problem > room.num_problems){
-            console.log('player has finished');
+            // console.log('player has finished');
             navigate('/finish');
         }
         const fetchProblem = async () => {
             const response = await fetch('/api/problems/' + room.problem_ids[user.current_problem-1]);
             const json = await response.json()
             if(response.ok){
-                console.log("Json");
-                console.log(json);
+                // console.log("Json");
+                // console.log(json);
                 setProblem(json);
             }
             else{
-                console.log("Error in use Effect");
+                // console.log("Error in use Effect");
             }
         }
         if(room && room.room_state === 'in progress'){
@@ -50,26 +50,26 @@ const Problem = () => {
     },[reload]);
     useEffect(() => {
         if(accepted){
-            console.log('Code has been accepted');
-            console.log(user);
+            // console.log('Code has been accepted');
+            // console.log(user);
             socket.emit('game solve message', user);
         }
     }, [accepted]);
     
     useEffect(() => {
         socket.on('rec powerup', (powerup_name) => {
-            console.log('received ' + powerup_name);
+            // console.log('received ' + powerup_name);
             switch (powerup_name) {
                 case "Freeze":
                     setFreeze(true);
-                    console.log("In case freeze");
+                    // console.log("In case freeze");
                     setTimeout(() => {
                         setFreeze(false);
                     }, 30000)
                     break;
                 case "Bomb":
                     setBomb(true);
-                    console.log("In case bomb");
+                    // console.log("In case bomb");
                     setTimeout(() => {
                         setBomb(false);
                     }, 1000)

@@ -6,23 +6,23 @@ export const UserContext = createContext(null);
 export const usersReducer = (state, action) => {
     switch (action.type) {
         case 'SET_USER':
-            console.log("Setting up user: ")
-            console.log(action.payload);
+            // console.log("Setting up user: ")
+            // console.log(action.payload);
             return action.payload
         case 'SET_CURRENT_SCORE':
-            console.log("Setting up user score: ")
-            console.log(action.payload);
+            // console.log("Setting up user score: ")
+            // console.log(action.payload);
             return {...state, score: action.payload}
         case 'SET_CURRENT_PROBLEM':
-            console.log("Setting up user problem: ")
-            console.log(action.payload);
+            // console.log("Setting up user problem: ")
+            // console.log(action.payload);
             return {...state, current_problem: action.payload}
         case 'SET_CURRENT_PROBLEM_AND_SCORE':
-            console.log("Setting up user problem & score: ")
-            console.log(action.payload);
+            // console.log("Setting up user problem & score: ")
+            // console.log(action.payload);
             return {...state, current_problem: action.payload.current_problem, score:action.payload.score}
         default:
-            console.log('Did not recognize ' + action.type);
+            console.log('ERROR: Did not recognize ' + action.type);
             return state;
     }
 }

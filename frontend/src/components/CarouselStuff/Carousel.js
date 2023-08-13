@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import right_arrow from '../../images/arrow_forward_ios.svg'
+import left_arrow from '../../images/arrow_back_ios.svg'
 const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const items = [
@@ -97,9 +98,10 @@ const Carousel = () => {
             </div>
         ))}
         <div className='carousel-nav'>
-            <button onClick={prevSlide}><span className="material-symbols-outlined">arrow_back_ios</span>
+            <button onClick={prevSlide}><img className="learn-more-arrow" src={left_arrow} alt="left-arrow"/>
+                
 </button>
-            <button onClick={nextSlide}><span className="material-symbols-outlined">arrow_forward_ios</span>
+            <button onClick={nextSlide}><img className="learn-more-arrow" src={right_arrow} alt="right-arrow"/>
 </button>
         </div>
     </div>

@@ -16,7 +16,8 @@ import Finish from './pages/Finish';
 
 import LearnMore from './pages/LearnMore'
 import { MessageContextProvider } from './context/MessageContext';
-const socket = io.connect("http://localhost:4000");
+console.log(process.env.REACT_APP_BACKEND_URL);
+const socket = io.connect(process.env.REACT_APP_BACKEND_URL);
 function App() {
   useEffect(() => {
     console.log(socket);
@@ -32,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Link to='/'><NavBar/></Link>
+       <NavBar/>
         <div className="pages">
           <SocketContext.Provider value = {socket}>
             <UserContextProvider>

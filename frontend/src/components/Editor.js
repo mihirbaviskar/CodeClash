@@ -3,9 +3,7 @@ import MonacoEditor from 'react-monaco-editor';
 import { useState, useEffect , useRef} from "react";
 import ResponseDisplay from './ResponseDisplay';
 import { UserContext } from '../context/UserContext';
-import { SocketContext } from '../context/SocketContext';
 import { RoomContext } from '../context/RoomContext';
-import { bombText } from './BombText';
 const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bomb}) => {
   // console.log(starter_code);
   const specialChars = ["(", ")", "^", "/", ";", ":", "{", "}"];
@@ -40,7 +38,7 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
   }, []);
   
   const editorDidMount = (editor, monaco) => {
-    console.log('editorDidMount', editor);
+    // console.log('editorDidMount', editor);
     editor.focus();
     editorRef.current = editor;
   }
@@ -58,7 +56,7 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
     return lines.join('\n');
   }
   useEffect(() => {
-    console.log(bomb);
+    // console.log(bomb);
     if(bomb){
       const new_code = removeLines(code);
       setCode(new_code);
@@ -66,10 +64,10 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
         console.log('yes editor ref exists');
         const model = editorRef.current.getModel();
         if (model) {
-          console.log('model exists ab');
+          // console.log('model exists ab');
           // const currentValue = model.getValue();
           // console.log(currentValue);
-          console.log(new_code);
+          // console.log(new_code);
           model.setValue(new_code);
         }
       }
@@ -77,18 +75,18 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
   }, [bomb])
 
   const onChange = (newValue, e) => {
-    console.log(freeze);
+    // console.log(freeze);
     if(!freeze){
       setCode(newValue);
     }
     else{
-      console.log('freeze');
+      // console.log('freeze');
     }
   }
 
   const handleSubmit = async () => {
     if(accepted){
-      console.log("Accepted so going to next problem");
+      // console.log("Accepted so going to next problem");
       setResponse(null);
       setReload(prev => !prev);
       setAccepted(false);

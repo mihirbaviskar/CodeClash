@@ -1,10 +1,10 @@
 const Powerup = ({name, cost, icon}) => {
 
     const handleOnDragStart = (e) => {
-        console.log('dragging');
+        // console.log('dragging');
         const p = JSON.stringify({name,cost});
         e.dataTransfer.setData("powerup", p);
-        console.log(e)
+        // console.log(e)
     };
 
     return(

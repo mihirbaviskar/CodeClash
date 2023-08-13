@@ -30,7 +30,7 @@ const Stopwatch = () => {
     }, []);
 
     useEffect(() => {
-        console.log('Changing elapsed time');
+        // console.log('Changing elapsed time');
         setElapsedTime(0);
         const d = new Date();
         startTimeRef.current = (Math.floor(d.getTime()/1000));

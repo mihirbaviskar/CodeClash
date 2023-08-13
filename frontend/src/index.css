@@ -48,7 +48,9 @@ header .navbar {
   margin-right:5px;
   /* justify-content: space-between; */
 }
-
+a{
+  text-decoration: none;
+}
 .company-name{
   color: var(--gold);
   margin:0px;
@@ -60,6 +62,9 @@ header .navbar {
   width: 25px;
   margin-left: 5px;
   margin-right: 5px;
+}
+.logo-container{
+  display: flex;
 }
 /* Form CSS*/
 div.error {
@@ -941,7 +946,7 @@ button.submit.disabled:hover{
 .carousel {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
   width: 80%;
   aspect-ratio: 16/9;
   position: relative;
@@ -986,4 +991,29 @@ button.submit.disabled:hover{
 .item-description{
   width:90%;
   text-align: center;
+}
+
+
+
+.attribution{
+  display: flex;
+  position:absolute;
+  right:0px;
+  bottom:5%;
+  width:25%;
+  justify-content: space-evenly;
+}
+
+.attribution > a{
+  text-decoration: none;
+  color:white;
+}
+.email:hover{
+  text-decoration: underline;
+}
+.attribution > a > img{
+  transition: transform 0.3s ease;
+}
+.attribution > a > img:hover{
+  transform: translateY(-5px);
 }

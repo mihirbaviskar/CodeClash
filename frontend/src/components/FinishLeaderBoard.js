@@ -65,7 +65,7 @@ const FinishGameLeaderboard = () => {
             room.user_ids.sort(compare);
             for(let i = 0; i<room.user_ids.length; i++){
                 if(room.user_ids[i]._id === user._id){
-                    console.log(i);
+                    // console.log(i);
                     setPlace(i+1);
                 }
             }

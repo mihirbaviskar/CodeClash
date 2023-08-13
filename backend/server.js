@@ -1,24 +1,34 @@
 const express = require('express');
 const http = require('http');
-const app = express()
+const app = express();
 const problemRoutes = require('./routes/problems');
-const roomRoutes = require('./routes/room')
-const mongoose = require('mongoose')
-const socketio = require('socket.io')
+const roomRoutes = require('./routes/room');
+const mongoose = require('mongoose');
+const socketio = require('socket.io');
 const {createRoom, joinRoom, createUser, deleteUser, generateRoomId} = require('./controllers/roomController');
+const path = require('path');
 // connect to .env file
-require('dotenv').config()
+require('dotenv').config();
+const isDevelopment = process.env.NODE_ENV !== 'production';
+const allowedOrigins = isDevelopment ? "http://localhost:3000" : "";
 
+console.log(allowedOrigins);
 const server = http.createServer(app);
 const io = socketio(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: allowedOrigins,
         methods: ["GET", "POST", "PATCH", "DELETE"],
         credentials: true
       }
 });
 
-
+if(isDevelopment){
+    console.log('It is development');
+    app.use(express.static(path.join(__dirname, './build')));
+}
+else{
+    console.log('It is not development');
+}
 // Run when client connects
 io.on('connection', (socket) => {
     console.log('New WS Connection...');
@@ -102,4 +112,4 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((error) => {
         console.log(error);
     })
-
+ 

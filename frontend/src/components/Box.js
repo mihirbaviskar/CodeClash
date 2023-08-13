@@ -16,7 +16,7 @@ const Box = ({rank, username, score, socket_id, error, setError, errorFields, se
   const handleOnDrop = (e) => {
     e.preventDefault();
     const inc_powerup = JSON.parse(e.dataTransfer.getData('powerup'));
-    console.log(inc_powerup);
+    // console.log(inc_powerup);
     if(inc_powerup.cost > money){
       setError('Not enough money');
       setErrorFields('money');
@@ -39,7 +39,7 @@ const Box = ({rank, username, score, socket_id, error, setError, errorFields, se
     }
     else{
       setMoney((prev) => prev - inc_powerup.cost);
-      console.log(inc_powerup.name);
+      // console.log(inc_powerup.name);
       socket.emit('send powerup', {socket_id, powerup_name:inc_powerup.name, send_user: user.username, rec_user: username, room_name:user.room_name});
       switch (inc_powerup.name) {
         case "Freeze":

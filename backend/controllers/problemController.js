@@ -8,7 +8,7 @@ const {decodeBase64, decodeOutput} = require('../Judge0/decode');
 
 let header;
 (async () =>{
-    header = await readTextFile('/Users/rasikapawar/Documents/Projects/MonacoTest/LCRacerTest/backend/Judge0/header_file.txt');
+    header = await readTextFile('./Judge0/header_file.txt');
     console.log("header has been read");
 })();
 

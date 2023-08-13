@@ -6,18 +6,18 @@ export const RoomContext = createContext(null);
 export const roomReducer = (state, action) => {
     switch (action.type) {
         case 'SET_ROOM':
-            console.log("Setting up room: ")
-            console.log(action.payload);
+            // console.log("Setting up room: ")
+            // console.log(action.payload);
             return action.payload
         case 'UPDATE_USERS':
-            console.log("Updating the users of the room: ")
-            console.log(action.payload);
+            // console.log("Updating the users of the room: ")
+            // console.log(action.payload);
             return {
                 ...state, user_ids: action.payload.user_ids, room_state: action.payload.room_state
             };
         case 'UPDATE_USER':
-            console.log("Updating a particular user of the room");
-            console.log(action.payload);
+            // console.log("Updating a particular user of the room");
+            // console.log(action.payload);
             return {
                 ...state,
                 user_ids: state.user_ids.map((user) =>

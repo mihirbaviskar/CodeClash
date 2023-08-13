@@ -22,7 +22,7 @@ const WaitingRoom = () => {
             });
             const room = await fetchResponse.json();
             if(fetchResponse.ok){
-              console.log("Response is ok");
+            //   console.log("Response is ok");
               roomDispatch({
                     type:'UPDATE_USERS',
                     payload:{
@@ -33,7 +33,7 @@ const WaitingRoom = () => {
             //   if(room.room_state === 'in progress') navigate('/problem');
             }
             else{
-              console.log("Response is not ok")
+            //   console.log("Response is not ok")
             }
         }
         if(!user || !room){
@@ -44,7 +44,7 @@ const WaitingRoom = () => {
     }, [])
     useEffect(() => {
         socket.on('new user joining room', ({user, room}) => {
-            console.log('Hey someone new is joining my room');
+            // console.log('Hey someone new is joining my room');
             roomDispatch({
                 type:'UPDATE_USERS',
                 payload:{
