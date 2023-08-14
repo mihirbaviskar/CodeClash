@@ -25,10 +25,6 @@ const io = socketio(server, {
 if(isProduction){
     console.log('It is in production');
     app.use(express.static(path.join(__dirname, './build')));
-    app.get("/*", (req, res) => {
-        console.log("base route accessed")
-        res.sendFile(path.join(__dirname, './build/index.html'))
-    })
 }
 else{
     console.log('It is not production');
@@ -103,7 +99,10 @@ app.use((req,res,next) => {
 //uses problemRouter to handle Routing
 app.use('/api/problems/', problemRoutes);
 app.use('/api/rooms/', roomRoutes);
-
+app.get("/*", (req, res) => {
+    console.log("base route accessed")
+    res.sendFile(path.join(__dirname, './build/index.html'))
+})
 // connect to database
 mongoose.connect(process.env.MONGO_URI)
     .then(() =>{

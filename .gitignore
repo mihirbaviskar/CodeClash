@@ -4,3 +4,4 @@ node_modules
 *.txt
 .vscode
 !backend/Judge0/header_file.txt
+build-versions

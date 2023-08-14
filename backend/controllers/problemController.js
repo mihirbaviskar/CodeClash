@@ -24,6 +24,7 @@ const getAllProblems = async (req, res) => {
 }
 // get specific problem given id
 const getProblemRoute = async (req, res) => {
+    console.log('Getting specific problem');
     const {id} = req.params;
     try{
         const problem = await getProblem(id);
@@ -31,6 +32,8 @@ const getProblemRoute = async (req, res) => {
     }
     catch(error){
         res.status(404).json({error: error.message});
+        console.log('error in getting problem');
+        console.log(error);
     }
 }
 const getProblem = async (id) => {
