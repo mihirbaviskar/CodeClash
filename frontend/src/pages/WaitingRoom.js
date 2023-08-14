@@ -114,7 +114,7 @@ const WaitingRoom = () => {
                 {room && room.room_state === 'waiting' ? waiting_component() : <p>In Progress</p>}
                 <div className="room-name-container">
                     <p className="room-name">Room name: {room.room_name}</p>
-                    <button onClick={() => {navigator.clipboard.writeText(room.room_name)}}>Copy</button>
+                    {/* <button onClick={() => {navigator.clipboard.writeText(room.room_name)}}>Copy</button> */}
                 </div>
             </div>
         </div>

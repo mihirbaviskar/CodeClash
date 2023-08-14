@@ -80,9 +80,9 @@ const Problem = () => {
         });
     }, []);
 
-    // if(!room || !(room.room_state === 'in progress')){
-    //     return (<p>You are not part of this room or you disconnected</p>);
-    // }
+    if(!room || !(room.room_state === 'in progress')){
+        return (<p>You are not part of this room or you disconnected</p>);
+    }
     return(
         <div className="flex-container">
             <div className={`flex-item left ${freeze ? 'freeze-desc' : ''} ${bomb ? 'bomb-desc' : ''}`} id="description">

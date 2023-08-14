@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b1a0500d.css",
-    "main.js": "/static/js/main.b8100c69.js",
+    "main.css": "/static/css/main.74a50b73.css",
+    "main.js": "/static/js/main.c1eb17a8.js",
     "static/media/runtime_error.png": "/static/media/runtime_error.8c8c0cc733acaee04829.png",
     "static/media/accepted.png": "/static/media/accepted.548679cde81375ad4be5.png",
     "static/media/compilation_error.png": "/static/media/compilation_error.59bb534fd0a994ba3cc8.png",
@@ -19,11 +19,13 @@
     "static/media/joinroom_closeup.png": "/static/media/joinroom_closeup.c63c3a2e3c5028d136c1.png",
     "static/media/linkedin-white.svg": "/static/media/linkedin-white.4f5191f488d93a3e8a82ff9dbc7e64b9.svg",
     "index.html": "/index.html",
-    "main.b1a0500d.css.map": "/static/css/main.b1a0500d.css.map",
-    "main.b8100c69.js.map": "/static/js/main.b8100c69.js.map"
+    "static/media/arrow_forward_ios.svg": "/static/media/arrow_forward_ios.d6dd3839b93a2b9b7855d3a18254c8c3.svg",
+    "static/media/arrow_back_ios.svg": "/static/media/arrow_back_ios.4c94e417f2fe58434bbabf4ec9c2c87d.svg",
+    "main.74a50b73.css.map": "/static/css/main.74a50b73.css.map",
+    "main.c1eb17a8.js.map": "/static/js/main.c1eb17a8.js.map"
   },
   "entrypoints": [
-    "static/css/main.b1a0500d.css",
-    "static/js/main.b8100c69.js"
+    "static/css/main.74a50b73.css",
+    "static/js/main.c1eb17a8.js"
   ]
 }

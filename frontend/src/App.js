@@ -16,8 +16,14 @@ import Finish from './pages/Finish';
 
 import LearnMore from './pages/LearnMore'
 import { MessageContextProvider } from './context/MessageContext';
-console.log(process.env.REACT_APP_BACKEND_URL);
+
+if(process.env.REACT_APP_DEBUG === 'false'){
+  console.log = function() {}
+}
+
 const socket = io.connect(process.env.REACT_APP_BACKEND_URL);
+
+
 function App() {
   useEffect(() => {
     console.log(socket);
@@ -62,6 +68,11 @@ function App() {
                     path = '/learn-more'
                     element={
                       <LearnMore/>
+                    }/>
+                    <Route
+                    path = '/*'
+                    element={
+                      <div>404 Not Found</div>
                     }/>
                 </Routes>
                 </MessageContextProvider>

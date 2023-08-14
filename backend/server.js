@@ -9,25 +9,29 @@ const {createRoom, joinRoom, createUser, deleteUser, generateRoomId} = require('
 const path = require('path');
 // connect to .env file
 require('dotenv').config();
-const isDevelopment = process.env.NODE_ENV !== 'production';
-const allowedOrigins = isDevelopment ? "http://localhost:3000" : "";
+const isProduction = process.env.NODE_ENV === 'production';
+const allowedOrigins = isProduction ? ["http://www.codeclash.net"] : ["http://localhost:3000"];
 
 console.log(allowedOrigins);
 const server = http.createServer(app);
 const io = socketio(server, {
     cors: {
-        origin: allowedOrigins,
+        origin: [allowedOrigins],
         methods: ["GET", "POST", "PATCH", "DELETE"],
         credentials: true
       }
 });
 
-if(isDevelopment){
-    console.log('It is development');
+if(isProduction){
+    console.log('It is in production');
     app.use(express.static(path.join(__dirname, './build')));
+    app.get("/*", (req, res) => {
+        console.log("base route accessed")
+        res.sendFile(path.join(__dirname, './build/index.html'))
+    })
 }
 else{
-    console.log('It is not development');
+    console.log('It is not production');
 }
 // Run when client connects
 io.on('connection', (socket) => {
@@ -99,6 +103,7 @@ app.use((req,res,next) => {
 //uses problemRouter to handle Routing
 app.use('/api/problems/', problemRoutes);
 app.use('/api/rooms/', roomRoutes);
+
 // connect to database
 mongoose.connect(process.env.MONGO_URI)
     .then(() =>{
