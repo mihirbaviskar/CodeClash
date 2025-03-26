@@ -28,6 +28,7 @@ const Problem = () => {
     const navigate = useNavigate();
     useEffect(() => {
         setAccepted(false);
+        // for testing purposes so that when I got to /problem it doesn't immediately go to the next page
         if(user && user.current_problem > room.num_problems){
             console.log('player has finished');
             navigate('/finish');
@@ -40,7 +41,9 @@ const Problem = () => {
             if(response.ok){
                 console.log("Json");
                 console.log(json);
-                setProblem(json);
+                await setProblem(json);
+                console.log("Problem");
+                console.log(problem);
             }
             else{
                 console.log("Error in use Effect");

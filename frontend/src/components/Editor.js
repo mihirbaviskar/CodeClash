@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from '@monaco-editor/react';
 import { useState, useEffect , useRef} from "react";
 import ResponseDisplay from './ResponseDisplay';
 import { UserContext } from '../context/UserContext';
 import { RoomContext } from '../context/RoomContext';
+import './Resize';
 const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bomb}) => {
   // console.log(starter_code);
   const specialChars = ["(", ")", "^", "/", ";", ":", "{", "}"];
@@ -41,6 +42,9 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
     // console.log('editorDidMount', editor);
     editor.focus();
     editorRef.current = editor;
+    console.log('onMount: the editor instance:', editor);
+    console.log('onMount: the monaco instance:', monaco);
+    options.automaticLayout = false;
   }
   function removeLines(str) {
     // Split the string into an array of lines
@@ -127,7 +131,8 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
     wordWrap: 'on',
     fontSize: 14,
     minimap: { enabled: false },
-    readOnly: freeze
+    readOnly: freeze,
+    automaticLayout: true
   };
 
   let button_name = "";
@@ -142,18 +147,20 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
   else{
     button_name = 'Submit';
   }
+
   return (
     <div className='editor-container'>
-      <div className={`editor ${freeze ? 'freeze-editor' : ''} ${bomb ? 'bomb-editor' : ''}`}>
+      <div className={`editor ${freeze ? 'freeze-editor' : ''} ${bomb ? 'bomb-editor' : ''}`} id="container">
+        
         <MonacoEditor
-          // width="100%"
+          width="100%"
           // height='67vh'
-          language={"cpp"}
-          theme={"vs-dark"}
+          defaultLanguage='cpp'
+          theme="vs-dark"
           value={code}
           options={options}
           onChange={onChange}
-          editorDidMount={editorDidMount}
+          onMount={editorDidMount}
         />
         <button className={`submit ${isButtonDisabled ? 'disabled': ''}`} disabled={isButtonDisabled} onClick={handleSubmit}>{button_name}</button>
       </div>
@@ -163,3 +170,10 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
 }
 
 export default Editor;
+
+
+
+
+  // COMMENT FROM HERE FOR NEW MONACO EDITOR
+
+

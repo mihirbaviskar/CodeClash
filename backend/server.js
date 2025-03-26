@@ -31,11 +31,11 @@ else{
 }
 // Run when client connects
 io.on('connection', (socket) => {
-    console.log('New WS Connection...');
-    socket.on("send message", (message) => {
-        console.log(message);
-        io.emit("receive message" , "Hey new user joined");
-    })
+    // console.log('New WS Connection...');
+    // socket.on("send message", (message) => {
+    //     console.log(message);
+    //     io.emit("receive message" , "Hey new user joined");
+    // })
     //diffs, size, username, socket_id
     socket.on("create room", async ({diffs, num_players, username}) => {
         console.log("Creating the room");

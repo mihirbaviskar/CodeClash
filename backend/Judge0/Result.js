@@ -90,18 +90,6 @@ async function getResultFromInput(inputString){
 
 
 
-// const token = '1a59e9ec-8d1b-4a4e-9f1b-486f159c9e1a';
-// ProcessToken(token)
-//     .then(response =>{
-//         console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-//         console.log(response);
-//         console.log(decodeBase64(response.source_code));
-//         console.log(decodeBase64(response.compile_output));
-//         console.log(decodeBase64(response.stdout));
-//         console.log(decodeBase64(response.stderr));
-//     })
-//     .catch(error => console.error(error));
-
 module.exports = {
     readTextFile,
     getResultFromInput
