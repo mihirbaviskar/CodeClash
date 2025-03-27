@@ -103,11 +103,11 @@ const postProblem = async(req, res) => {
 const postSubmission = async(req, res) => {
     console.log("uploading submission");
     const {_id, code} = req.body;
-    console.log(code);
+    // console.log(code);
     try{
         const problem = await getProblem(_id);
         const submission = header + "\n" + code + "\n" + problem.testcases;
-        console.log(submission);
+        // console.log(submission);
         const result = await getResultFromInput(submission);
         if (result.stdout) result.stdout = decodeOutput(decodeBase64(result.stdout));
         if (result.stderr) result.stderr = decodeBase64(result.stderr);

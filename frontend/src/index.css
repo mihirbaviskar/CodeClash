@@ -403,12 +403,51 @@ button.submit.disabled:hover{
 .freeze-editor{
   border-top: 3px var(--Freeze) solid !important;
 }
+.editor-bar{
+  width:50%;
+  position: fixed;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 36px;
+  /* border: 1px solid aliceblue; */
+  z-index: 10;
+  align-items: center;
+}
+.editor-bar > button{
+  /* flex:1; */
+  background-color: transparent;
+  border:none;
+  position:relative;
+  /* border: 1px solid salmon; */
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.editor-bar > button:after{
+  content: attr(data-icon);
+  position: absolute;
+  background: black;
+  color: white;
+  padding: 2px;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  transition: 0.5s opacity;
+  left: 40%;
+  transform: translateX(-50%);
+  /* white-space: nowrap; */
+  pointer-events: none;
+  bottom: -35px;
+}
+.editor-bar > button:hover::after{
+  opacity: 1;
+}
 
 .editor{
   flex: 3;
   border-top: 3px var(--gold) solid;
   overflow-y: auto;
   position:relative;
+  padding-top:36px;
 }
 .freeze-response-display{
   border-top: 3px solid var(--Freeze) !important;
@@ -455,6 +494,7 @@ button.submit.disabled:hover{
   display:flex;
   flex-direction: column;
   width:100%;
+  background-color: #1e1e1e;
 }
 .leaderboard{
   display:flex;

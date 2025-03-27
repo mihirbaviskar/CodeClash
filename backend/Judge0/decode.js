@@ -6,6 +6,7 @@ const decodeBase64 = (base64String) => {
 const decodeOutput = (stdout) => {
     let lastOccurrence = stdout.lastIndexOf("$***************************************$");
     let result = stdout.substring(lastOccurrence + "$***************************************$".length+1);
+    // essentially just get everything after the marker which is what they printed.
     return result;
 }
 

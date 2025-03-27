@@ -60,9 +60,10 @@ public:
     bool palindromeChecker(string input) {
         string clean_s = "";
         for(char c : input){
-            if(isalnum(c))   clean_s+=tolower(c);
+            if(isalnum(c))   clean_s+=c;
         }
         input = clean_s;
+        cout << input << endl;
         int l = 0;
         int r = input.length()-1;
         for(int i = 0; i<(input.length()/2); i++){

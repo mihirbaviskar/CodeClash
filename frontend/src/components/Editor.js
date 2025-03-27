@@ -4,6 +4,7 @@ import { useState, useEffect , useRef} from "react";
 import ResponseDisplay from './ResponseDisplay';
 import { UserContext } from '../context/UserContext';
 import { RoomContext } from '../context/RoomContext';
+import restart_icon from '../images/restart.svg'
 import './Resize';
 const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bomb}) => {
   // console.log(starter_code);
@@ -87,7 +88,6 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
       // console.log('freeze');
     }
   }
-
   const handleSubmit = async () => {
     if(accepted){
       // console.log("Accepted so going to next problem");
@@ -150,8 +150,12 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
 
   return (
     <div className='editor-container'>
+      <div className='editor-bar'>
+        <button onClick={() => setCode(starter_code)} data-icon="Reset Code">
+          <img src={restart_icon} alt="restart-icon"/>
+        </button>
+      </div>
       <div className={`editor ${freeze ? 'freeze-editor' : ''} ${bomb ? 'bomb-editor' : ''}`} id="container">
-        
         <MonacoEditor
           width="100%"
           // height='67vh'
