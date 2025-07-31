@@ -175,10 +175,28 @@ const deleteUser = async({socket_id}) => {
         console.error(error);
         throw error;
     }
-
 }
 
-
+const updateUser = async(new_user) => {
+    try{
+        console.log("Updating user");
+        const updatedUser = await User.findByIdAndUpdate(
+            new_user._id,
+            new_user,
+            {new: true}
+        )
+        if(!updatedUser){
+            console.log("User with id " + new_user._id +  "not found");
+            return null;
+        }
+        console.log("User updated successffully: ", updatedUser);
+        return updatedUser;
+    }
+    catch(error){
+        console.error("Error updating user:", error);
+        throw error;
+    }
+}
 
 
 const getRoomByName = async (room_name) => {
@@ -259,6 +277,7 @@ module.exports = {
     createRoom,
     joinRoom,
     createUser,
+    updateUser,
     deleteUser,
     generateRoomId,
     reqRoomByName,

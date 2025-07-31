@@ -5,7 +5,7 @@ const problemRoutes = require('./routes/problems');
 const roomRoutes = require('./routes/room');
 const mongoose = require('mongoose');
 const socketio = require('socket.io');
-const {createRoom, joinRoom, createUser, deleteUser, generateRoomId} = require('./controllers/roomController');
+const {createRoom, joinRoom, createUser, updateUser, deleteUser, generateRoomId} = require('./controllers/roomController');
 const path = require('path');
 // connect to .env file
 require('dotenv').config();
@@ -68,6 +68,7 @@ io.on('connection', (socket) => {
     socket.on('game solve message', (user) => {
         console.log("GOT GAME SOLVE MESSAGE");
         console.log(user);
+        updateUser(user);
         io.in(user.room_name).emit('user solved problem', user);
     });
 
