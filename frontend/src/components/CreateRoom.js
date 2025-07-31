@@ -40,6 +40,7 @@ const CreateRoom = ({setLoading}) => {
                     current_problem: 1
                 }
             });
+            localStorage.setItem('userId', user._id);
             roomDispatch({
                 type:'SET_ROOM',
                 payload:{

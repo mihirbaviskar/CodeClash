@@ -26,15 +26,12 @@ const socket = io.connect(process.env.REACT_APP_BACKEND_URL);
 
 function App() {
   useEffect(() => {
-    console.log(socket);
-    socket.emit("send message", "A new user has joined");
-    socket.on("receive message", (message) => {
-      console.log(message);
-    });
-    return () => {
-      socket.off('receive message');
-    };
-  }, [])
+    const storedUserId = localStorage.getItem('userId');
+    if(storedUserId){
+      console.log("returning user: ", storedUserId);
+      socket.emit("reconnect-user", {userId: storedUserId});
+    }
+  }, []);
 
   return (
     <div className="App">

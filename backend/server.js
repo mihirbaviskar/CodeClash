@@ -64,6 +64,9 @@ io.on('connection', (socket) => {
             console.log("SOCKET BELONGS TO ROOM: " + socket.rooms);
             socket.to(room.room_name).emit('new user joining room', {user, room});
         }
+    });
+    socket.on('reconnect-user', (msg) =>{
+        console.log(msg);
     })
     socket.on('game solve message', (user) => {
         console.log("GOT GAME SOLVE MESSAGE");
@@ -82,11 +85,11 @@ io.on('connection', (socket) => {
         io.in(room_name).emit('user used powerup', message);
     })
 
-    socket.on('disconnect', async () => {
-        console.log('Disconnecting user');
-        const user = await deleteUser({socket_id:socket.id});
-        console.log(user);
-    })
+    // socket.on('disconnect', async () => {
+    //     console.log('Disconnecting user');
+    //     const user = await deleteUser({socket_id:socket.id});
+    //     console.log(user);
+    // })
 });
 
 // this bit of middleware converts the request body into json readable format
