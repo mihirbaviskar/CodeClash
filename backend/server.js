@@ -36,11 +36,11 @@ io.on('connection', (socket) => {
     //     console.log(message);
     //     io.emit("receive message" , "Hey new user joined");
     // })
-    //diffs, size, username, socket_id
+    //diffs, size, username,
     socket.on("create room", async ({diffs, num_players, username}) => {
         console.log("Creating the room");
         console.log({diffs, num_players, username});
-        const {user, room} = await createRoom({diffs, num_players, username, socket_id: socket.id});
+        const {user, room} = await createRoom({diffs, num_players, username});
         if(room.error){
             console.log(room);
             socket.emit('error create room', room);
@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
     })
     socket.on("join room", async ({username, room_name}) => {
         console.log(username + " is joining " + room_name);
-        const {user, room} = await joinRoom({room_name, username, socket_id: socket.id});
+        const {user, room} = await joinRoom({room_name, username});
         if(room.error){
             console.log(room);
             socket.emit('error join room', room);
@@ -75,19 +75,19 @@ io.on('connection', (socket) => {
         io.in(user.room_name).emit('user solved problem', user);
     });
 
-    socket.on("send powerup", ({socket_id, powerup_name, send_user, rec_user, room_name}) => {
-        console.log(socket_id);
-        console.log(powerup_name);
-        io.to(socket_id).emit('rec powerup', powerup_name);
-        const message = `${send_user} used ${powerup_name} on ${rec_user}`;
-        console.log(message);
-        console.log(room_name);
-        io.in(room_name).emit('user used powerup', message);
-    })
+    // socket.on("send powerup", ({socket*_id, powerup_name, send_user, rec_user, room_name}) => {
+    //     console.log(socket*_id);
+    //     console.log(powerup_name);
+    //     io.to(socket*_id).emit('rec powerup', powerup_name);
+    //     const message = `${send_user} used ${powerup_name} on ${rec_user}`;
+    //     console.log(message);
+    //     console.log(room_name);
+    //     io.in(room_name).emit('user used powerup', message);
+    // })
 
     // socket.on('disconnect', async () => {
     //     console.log('Disconnecting user');
-    //     const user = await deleteUser({socket_id:socket.id});
+    //     const user = await deleteUser({socket*_id:socket.id});
     //     console.log(user);
     // })
 });
