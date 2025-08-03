@@ -5,7 +5,7 @@ const problemRoutes = require('./routes/problems');
 const roomRoutes = require('./routes/room');
 const mongoose = require('mongoose');
 const socketio = require('socket.io');
-const {createRoom, joinRoom, createUser, updateUser, deleteUser, generateRoomId} = require('./controllers/roomController');
+const {createRoom, joinRoom, createUser, getUserById, updateUser, deleteUser, generateRoomId} = require('./controllers/roomController');
 const path = require('path');
 // connect to .env file
 require('dotenv').config();
@@ -29,13 +29,14 @@ if(isProduction){
 else{
     console.log('It is not production');
 }
+const userToSocket = new Map();
 // Run when client connects
 io.on('connection', (socket) => {
-    // console.log('New WS Connection...');
-    // socket.on("send message", (message) => {
-    //     console.log(message);
-    //     io.emit("receive message" , "Hey new user joined");
-    // })
+    console.log('New WS Connection...');
+    socket.on("send message", (message) => {
+        console.log(message); // A new user has joined
+        console.log(socket.id);
+    })
     //diffs, size, username,
     socket.on("create room", async ({diffs, num_players, username}) => {
         console.log("Creating the room");
@@ -46,6 +47,7 @@ io.on('connection', (socket) => {
             socket.emit('error create room', room);
         }
         else{
+            userToSocket.set(user._id, socket.id);
             socket.join(room.room_name);
             console.log("SOCKET BELONGS TO ROOM: " + socket.rooms);
             socket.emit('success create room', {user, room});
@@ -59,15 +61,25 @@ io.on('connection', (socket) => {
             socket.emit('error join room', room);
         }
         else{
+            userToSocket(user._id, socket.id);
             socket.join(room.room_name);
             socket.emit('success join room', {user, room});
             console.log("SOCKET BELONGS TO ROOM: " + socket.rooms);
             socket.to(room.room_name).emit('new user joining room', {user, room});
         }
     });
-    socket.on('reconnect-user', (msg) =>{
-        console.log(msg);
-    })
+    socket.on('reconnect-user', async ({userId}) => {
+        console.log(userId);
+        let user = await getUserById(userId);
+        console.log(user);
+        /*
+            check if user exists in db
+            if it does check if the room they belong to exists/ is in progress/ waiting
+            if so send room
+            map userid to socket.id
+            else send failure
+        */
+    });
     socket.on('game solve message', (user) => {
         console.log("GOT GAME SOLVE MESSAGE");
         console.log(user);

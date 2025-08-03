@@ -25,7 +25,6 @@ const JoinRoom = ({setLoading}) => {
                 type:'SET_USER',
                 payload: {
                     _id: user._id,
-                    socket_id:socket.id,
                     username: user.username,
                     room_name: user.room_name,
                     score: 0,

@@ -30,8 +30,20 @@ function App() {
     if(storedUserId){
       console.log("returning user: ", storedUserId);
       socket.emit("reconnect-user", {userId: storedUserId});
+
+      socket.on("reconnect-user-success", (game_state) => {
+
+      });
+    
+      socket.on("reconnect-user-fail", (error) => {
+        
+      })
     }
   }, []);
+  useEffect(() => {
+    console.log(socket.id);
+    socket.emit("send message", "A new user has joined");
+  }, [])
 
   return (
     <div className="App">
