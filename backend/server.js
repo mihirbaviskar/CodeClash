@@ -5,7 +5,7 @@ const problemRoutes = require('./routes/problems');
 const roomRoutes = require('./routes/room');
 const mongoose = require('mongoose');
 const socketio = require('socket.io');
-const {createRoom, joinRoom, createUser, getUserById, updateUser, deleteUser, generateRoomId} = require('./controllers/roomController');
+const {createRoom, joinRoom, createUser, getUserById, updateUser, deleteUser, generateRoomId, getRoomByName, reqRoomByName} = require('./controllers/roomController');
 const path = require('path');
 // connect to .env file
 require('dotenv').config();
@@ -47,7 +47,10 @@ io.on('connection', (socket) => {
             socket.emit('error create room', room);
         }
         else{
-            userToSocket.set(user._id, socket.id);
+            console.log("Room created successfully");
+            console.log((typeof user._id.toString()));
+            userToSocket.set(user._id.toString(), socket.id);
+            console.log("mapping user "+ user._id + " to socket " + socket.id);
             socket.join(room.room_name);
             console.log("SOCKET BELONGS TO ROOM: " + socket.rooms);
             socket.emit('success create room', {user, room});
@@ -61,7 +64,10 @@ io.on('connection', (socket) => {
             socket.emit('error join room', room);
         }
         else{
-            userToSocket(user._id, socket.id);
+            console.log("User joined room successfully");
+            console.log((typeof user._id));
+            userToSocket.set(user._id.toString(), socket.id);
+            console.log("mapping user "+ user._id + " to socket " + socket.id);
             socket.join(room.room_name);
             socket.emit('success join room', {user, room});
             console.log("SOCKET BELONGS TO ROOM: " + socket.rooms);
@@ -72,6 +78,16 @@ io.on('connection', (socket) => {
         console.log(userId);
         let user = await getUserById(userId);
         console.log(user);
+        if(user){
+            console.log("Found returning user with id " + userId);
+            userToSocket.set(userId, socket.id);
+            let room = await getRoomByName(user.room_name);
+            socket.join(room.room_name);
+            socket.emit('reconnect-user-success', {user, room});
+        }
+        else{
+            socket.emit('reconnect-user-failure');
+        }
         /*
             check if user exists in db
             if it does check if the room they belong to exists/ is in progress/ waiting
@@ -87,15 +103,20 @@ io.on('connection', (socket) => {
         io.in(user.room_name).emit('user solved problem', user);
     });
 
-    // socket.on("send powerup", ({socket*_id, powerup_name, send_user, rec_user, room_name}) => {
-    //     console.log(socket*_id);
-    //     console.log(powerup_name);
-    //     io.to(socket*_id).emit('rec powerup', powerup_name);
-    //     const message = `${send_user} used ${powerup_name} on ${rec_user}`;
-    //     console.log(message);
-    //     console.log(room_name);
-    //     io.in(room_name).emit('user used powerup', message);
-    // })
+    socket.on("send powerup", ({user_id, powerup_name, send_user, rec_user, room_name}) => {
+        console.log("Sending powerup");
+        console.log("[RECEIVING USER ID]: " + user_id);
+        socket_id = userToSocket.get(user_id);
+        if(!socket_id){
+            console.error("socket not found for user: " + user_id);
+        }
+        else{
+            console.log("[RECEIVING SOCKET ID]: ", socket_id);
+            io.to(socket_id).emit('rec powerup', powerup_name);
+            const message = `${send_user} used ${powerup_name} on ${rec_user}`;
+            io.in(room_name).emit('user used powerup', message);
+        }
+    })
 
     // socket.on('disconnect', async () => {
     //     console.log('Disconnecting user');

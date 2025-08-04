@@ -5,11 +5,25 @@ import JoinRoom from "../components/JoinRoom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import linkedin_icon from '../images/linkedin-white.svg';
 import github_icon from '../images/github-mark-white.png';
+import { UserContext } from "../context/UserContext";
+import { RoomContext } from "../context/RoomContext";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useEffect } from "react";
 
 const LandingPage = () => {
     const [loading, setLoading] = useState(false);
+    const {user} = useContext(UserContext);
+    const {room} = useContext(RoomContext);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(user._id && room.room_name){
+            console.log("[LANDING PAGE USER]: ", user);
+            console.log("[LANDING PAGE ROOM]:", room);
+            navigate('/waitingroom');
+        }
+    }, [user, room]);
 
     /*
     if(loading){

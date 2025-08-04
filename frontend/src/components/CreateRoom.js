@@ -29,6 +29,10 @@ const CreateRoom = ({setLoading}) => {
             console.log(errorFields);
         })
         socket.on('success create room', ({user, room}) => {
+            console.log("User joined room successfully");
+            console.log(user);
+            console.log(room);
+            console.log((typeof user._id));
             userDispatch({
                 type:'SET_USER',
                 payload: {
@@ -54,8 +58,8 @@ const CreateRoom = ({setLoading}) => {
             })
             setLoading(false);
             navigate('/waitingroom');
-        })
-    },[])
+        });
+    },[]);
 
 
 

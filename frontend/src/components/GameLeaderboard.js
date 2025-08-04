@@ -41,7 +41,7 @@ const GameLeaderboard = ({error, setError, errorFields, setErrorFields}) => {
     return (
         <div className="leaderboard">
             {users_array && users_array.length !==0 && users_array.map((user, index) => (
-                    <Box rank={place_array[index]} username={user.username} score={user.score} socket_id={user.socket_id} error={error} setError={setError} errorFields={errorFields} setErrorFields={setErrorFields}/>
+                    <Box rank={place_array[index]} username={user.username} score={user.score} user_id={user._id} error={error} setError={setError} errorFields={errorFields} setErrorFields={setErrorFields}/>
             ))}
         </div>
     );

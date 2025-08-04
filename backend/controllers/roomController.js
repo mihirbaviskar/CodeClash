@@ -217,7 +217,7 @@ const getUserById = async(user_id) => {
 
 const getRoomByName = async (room_name) => {
     try{
-        const room = await Room.findOne({room_name});
+        const room = await Room.findOne({room_name}).populate('user_ids');;
         if(!room){
             console.log("No such room");
             return null;
@@ -297,5 +297,6 @@ module.exports = {
     updateUser,
     deleteUser,
     generateRoomId,
+    getRoomByName,
     reqRoomByName,
     getRoomPopByName};

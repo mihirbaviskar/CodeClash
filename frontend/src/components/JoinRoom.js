@@ -21,6 +21,10 @@ const JoinRoom = ({setLoading}) => {
             setErrorFields(message.errorFields);            
         })
         socket.on('success join room', ({user, room}) => {
+            console.log("User joined room successfully");
+            console.log(user);
+            console.log(room);
+            console.log((typeof user._id));
             userDispatch({
                 type:'SET_USER',
                 payload: {
