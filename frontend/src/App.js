@@ -5,17 +5,19 @@ import Problem from './pages/Problem';
 import NavBar from './components/NavBar';
 import {io} from 'socket.io-client';
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import { useState } from 'react';
+
 import { SocketContext } from './context/SocketContext';
+import { UserContext } from './context/UserContext';
+import {RoomContext} from './context/RoomContext';
+import { MessageContextProvider } from './context/MessageContext';
 
-import { UserContextProvider } from './context/UserContext';
 import WaitingRoom from './pages/WaitingRoom';
-import { RoomContextProvider } from './context/RoomContext';
-
 import LandingPage from './pages/LandingPage';
 import Finish from './pages/Finish';
-
 import LearnMore from './pages/LearnMore'
-import { MessageContextProvider } from './context/MessageContext';
+import LoadingSpinner from './components/LoadingSpinner';
 
 if(process.env.REACT_APP_DEBUG === 'false'){
   console.log = function() {}
@@ -23,27 +25,50 @@ if(process.env.REACT_APP_DEBUG === 'false'){
 
 const socket = io.connect(process.env.REACT_APP_BACKEND_URL);
 
-
 function App() {
+  const {user_actual, dispatch: userDispatch} = useContext(UserContext);
+  const {room_actual, dispatch: roomDispatch} = useContext(RoomContext);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    console.log(socket);
-    socket.emit("send message", "A new user has joined");
-    socket.on("receive message", (message) => {
-      console.log(message);
-    });
+    // setLoading(true);
+    const storedUserId = localStorage.getItem('userId');
+    if(storedUserId){
+      console.log("returning user: ", storedUserId);
+      socket.emit("reconnect-user", {userId: storedUserId});
+
+      socket.on("reconnect-user-success", ({user, room}) => {
+        console.log("reconnect success");
+        userDispatch({
+          type: 'SET_USER',
+          payload:user
+        });
+        roomDispatch({
+          type:'SET_ROOM',
+          payload:room
+        });
+        console.log("[SET INIT USER]: ", user_actual);
+        console.log("[SET INIT ROOM]", room_actual);
+      });
+      socket.on("reconnect-user-failure", (error) => {
+        console.log("reconnect fail");
+        localStorage.clear();
+      });
+    }
     return () => {
-      socket.off('receive message');
-    };
+      // setLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    console.log(socket.id);
+    socket.emit("send message", "A new user has joined");
   }, [])
 
   return (
     <div className="App">
       <BrowserRouter>
        <NavBar/>
-        <div className="pages">
+        <div className={loading ? "loading-background-element" : "pages"}>
           <SocketContext.Provider value = {socket}>
-            <UserContextProvider>
-              <RoomContextProvider>
               <MessageContextProvider>
                 <Routes>
                     <Route 
@@ -76,10 +101,9 @@ function App() {
                     }/>
                 </Routes>
                 </MessageContextProvider>
-              </RoomContextProvider>
-            </UserContextProvider>
           </SocketContext.Provider>
         </div>
+        {loading && <LoadingSpinner/>}
       </BrowserRouter>
     </div>
   );

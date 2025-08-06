@@ -18,7 +18,7 @@ function generateRoomId(length) {
     return /^[a-z0-9]+$/i.test(str);
 }
 
-const createRoom = async ({diffs, num_players, username, socket_id}) =>{
+const createRoom = async ({diffs, num_players, username}) =>{
     console.log("Starting room creation");
     let errorFields = [];
     if(diffs.length === 0){
@@ -39,7 +39,7 @@ const createRoom = async ({diffs, num_players, username, socket_id}) =>{
     }
     const problems = await retRandProblems(diffs, 3);
     const room_name = generateRoomId(6);
-    const user = await createUser({username, room_name, socket_id})
+    const user = await createUser({username, room_name})
     if(user.error){
         console.log(user);
         return {user: null, room:user};
@@ -64,7 +64,7 @@ const createRoom = async ({diffs, num_players, username, socket_id}) =>{
 }
 
 
-const joinRoom = async ({room_name, username, socket_id}) => {
+const joinRoom = async ({room_name, username}) => {
     try{
         let errorFields = [];
         if(!room_name){
@@ -84,7 +84,7 @@ const joinRoom = async ({room_name, username, socket_id}) => {
         if(og_room){
             if(og_room.room_state === 'waiting'){
                 console.log("Room exists Players:" + og_room.user_ids.length);
-                const user = await createUser({username, room_name, socket_id});
+                const user = await createUser({username, room_name});
                 if(user.error){
                     console.log(user);
                     return{user: null, room: user};
@@ -126,14 +126,13 @@ const joinRoom = async ({room_name, username, socket_id}) => {
     }
 }
 
-const createUser = async({username, room_name, socket_id}) => {
+const createUser = async({username, room_name}) => {
     try{
         const user = await User.create({
             username,
             room_name,
             current_problem: 1,
             score: 0,
-            socket_id
         });
         console.log(user);
         return user;
@@ -148,33 +147,35 @@ const createUser = async({username, room_name, socket_id}) => {
 }
 
 // have to reset room state if someone leaves
-const deleteUser = async({socket_id}) => {
-    try{
-        console.log("Deleting user");
-        const user = await User.findOneAndDelete({socket_id});
-        if(!user){
-            console.log("Error no such user");
-            return null;
-        }
-        let room = await Room.findOneAndUpdate({room_name: user.room_name},
-            {$pull: {user_ids: user._id}}, {new:true});
-        if (!room) {
-            console.log('No room found with that name');
-        }
-        else{
-            if(room.user_ids.length === 0){
-                console.log('Deleting room');
-                room = await Room.findByIdAndDelete(room._id);
-            }
-            console.log(room);
-        }
-        console.log(user);
-        return user;
-    }
-    catch(error){
-        console.error(error);
-        throw error;
-    }
+const deleteUser = async() => {
+    console.error("DELETE USER DOESN'T WORK BUT CALLED");
+    return;
+    // try{
+    //     console.log("Deleting user");
+    //     const user = await User.findOneAndDelete({socket_id});
+    //     if(!user){
+    //         console.log("Error no such user");
+    //         return null;
+    //     }
+    //     let room = await Room.findOneAndUpdate({room_name: user.room_name},
+    //         {$pull: {user_ids: user._id}}, {new:true});
+    //     if (!room) {
+    //         console.log('No room found with that name');
+    //     }
+    //     else{
+    //         if(room.user_ids.length === 0){
+    //             console.log('Deleting room');
+    //             room = await Room.findByIdAndDelete(room._id);
+    //         }
+    //         console.log(room);
+    //     }
+    //     console.log(user);
+    //     return user;
+    // }
+    // catch(error){
+    //     console.error(error);
+    //     throw error;
+    // }
 }
 
 const updateUser = async(new_user) => {
@@ -186,7 +187,7 @@ const updateUser = async(new_user) => {
             {new: true}
         )
         if(!updatedUser){
-            console.log("User with id " + new_user._id +  "not found");
+            console.log("User with id " + new_user._id +  " not found");
             return null;
         }
         console.log("User updated successffully: ", updatedUser);
@@ -198,10 +199,25 @@ const updateUser = async(new_user) => {
     }
 }
 
+const getUserById = async(user_id) => {
+    try{
+        const user = await User.findById(user_id);
+        if(!user){
+            console.log("User with id " + user_id +  " not found");
+            return null;
+        }
+        return user;
+    }
+    catch(error){
+        console.error("Error getting user by id ", error);
+        throw error;
+    }
+}
+
 
 const getRoomByName = async (room_name) => {
     try{
-        const room = await Room.findOne({room_name});
+        const room = await Room.findOne({room_name}).populate('user_ids');;
         if(!room){
             console.log("No such room");
             return null;
@@ -276,9 +292,11 @@ const getRoomPopByName = async (req, res) => {
 module.exports = {
     createRoom,
     joinRoom,
+    getUserById,
     createUser,
     updateUser,
     deleteUser,
     generateRoomId,
+    getRoomByName,
     reqRoomByName,
     getRoomPopByName};

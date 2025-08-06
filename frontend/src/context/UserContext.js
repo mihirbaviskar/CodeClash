@@ -30,7 +30,6 @@ export const UserContextProvider = ({children}) => {
     //children property represents whatever components or templates that provider wraps
     const [user, dispatch] = useReducer(usersReducer, {
         _id: null,
-        socket_id: null,
         username: null,
         room_name: null,
         score: 0,

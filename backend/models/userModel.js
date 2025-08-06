@@ -18,11 +18,6 @@ const userSchema = new Schema({
         type: Number,
         required:true
     },
-    socket_id:{
-        type: String,
-        required:true,
-        unique:true
-    },
     createdAt: { 
         type: Date, 
         default: Date.now,

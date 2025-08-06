@@ -1,5 +1,4 @@
 import FinishGameLeaderboard from "../components/FinishLeaderBoard";
-// import GameLeaderboard from "../components/GameLeaderboard";
 
 const Finish = () => {   
     return(

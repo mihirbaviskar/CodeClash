@@ -3,7 +3,7 @@ import { UserContext } from "../context/UserContext";
 import { SocketContext } from "../context/SocketContext";
 import { MessageContext } from "../context/MessageContext";
 
-const Box = ({rank, username, score, socket_id, error, setError, errorFields, setErrorFields}) => {
+const Box = ({rank, username, score, user_id, error, setError, errorFields, setErrorFields}) => {
   const {user, money, setMoney} = useContext(UserContext);
   const {dispatch: messageDispatch}= useContext(MessageContext);
   const socket = useContext(SocketContext);
@@ -27,7 +27,7 @@ const Box = ({rank, username, score, socket_id, error, setError, errorFields, se
         setLocalError(false);
       }, 7500)
     }
-    else if(socket_id === user.socket_id){
+    else if(user_id === user._id){
       setError("Can't harm yourself you fool");
       setErrorFields('self_harm');
       setLocalError(true);
@@ -40,7 +40,7 @@ const Box = ({rank, username, score, socket_id, error, setError, errorFields, se
     else{
       setMoney((prev) => prev - inc_powerup.cost);
       // console.log(inc_powerup.name);
-      socket.emit('send powerup', {socket_id, powerup_name:inc_powerup.name, send_user: user.username, rec_user: username, room_name:user.room_name});
+      socket.emit('send powerup', {user_id, powerup_name:inc_powerup.name, send_user: user.username, rec_user: username, room_name:user.room_name});
       switch (inc_powerup.name) {
         case "Freeze":
           setFreeze(true);
@@ -62,7 +62,7 @@ const Box = ({rank, username, score, socket_id, error, setError, errorFields, se
   return (//className={`editor ${freeze ? 'freeze-editor' : ''} ${bomb ? 'bomb-editor' : ''}`}
     <div onDrop={handleOnDrop} onDragOver={handleDragOver} className={`${localError ? 'error-leaderboard-box leaderboard-box' : 'leaderboard-box'} ${freeze ? 'freeze-leaderboard-box' : ''} ${bomb ? 'bomb-leaderboard-box' : ''}`}>
         <p key="1" className={`${localError ? 'error-ranking ranking' : 'ranking'} ${freeze ? 'freeze-ranking' : ''} ${bomb ? 'bomb-ranking' : ''}`}>{rank}</p> {/*className={localError ? 'error-leaderboard-box leaderboard-box' : 'leaderboard-box'} ranking*/}
-        <p key="2" className='username'> {socket_id === user.socket_id ? username + ' (You)' : username}</p>
+        <p key="2" className='username'> {user_id === user._id ? username + ' (You)' : username}</p>
         <p key="3" className={`${localError ? 'error-score score' : 'score'} ${freeze ? 'freeze-score' : ''} ${bomb ? 'bomb-score' : ''}`}>{score}</p>
     </div>
   );

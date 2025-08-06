@@ -29,17 +29,21 @@ const CreateRoom = ({setLoading}) => {
             console.log(errorFields);
         })
         socket.on('success create room', ({user, room}) => {
+            console.log("User joined room successfully");
+            console.log(user);
+            console.log(room);
+            console.log((typeof user._id));
             userDispatch({
                 type:'SET_USER',
                 payload: {
                     _id: user._id,
-                    socket_id:socket.id,
                     username: user.username,
                     room_name: user.room_name,
                     score: 0,
                     current_problem: 1
                 }
             });
+            localStorage.setItem('userId', user._id);
             roomDispatch({
                 type:'SET_ROOM',
                 payload:{
@@ -54,8 +58,8 @@ const CreateRoom = ({setLoading}) => {
             })
             setLoading(false);
             navigate('/waitingroom');
-        })
-    },[])
+        });
+    },[]);
 
 
 
