@@ -6,6 +6,7 @@ import { RoomContext } from "../context/RoomContext";
 import Arcade from "../components/Arcade";
 import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
+import { MessageContext } from "../context/MessageContext";
 
 
 const Problem = () => {
@@ -19,8 +20,9 @@ const Problem = () => {
         starter_code:""
     });
     const socket = useContext(SocketContext);
-    const {user} = useContext(UserContext);
-    const {room} = useContext(RoomContext);
+    const {user, dispatch: userDispatch} = useContext(UserContext);
+    const {room, dispatch: roomDispatch} = useContext(RoomContext);
+    const {message, dispatch: messageDispatch} = useContext(MessageContext);
     const [accepted, setAccepted] = useState(false);
     const [reload, setReload] = useState(false);
     const [freeze, setFreeze] = useState(false);
@@ -29,8 +31,16 @@ const Problem = () => {
     useEffect(() => {
         setAccepted(false);
         // for testing purposes so that when I got to /problem it doesn't immediately go to the next page
-        if(user && user.current_problem > room.num_problems){
+        if (!user || !user._id || !room || !room.room_name) return;
+        if(user.current_problem > room.num_problems){
+            console.log("user: ", user);
+            console.log("room: ", room);
             console.log('player has finished');
+            roomDispatch({
+                type:'SET_ROOM_STATE',
+                payload: 'finished'
+            });
+            localStorage.clear();
             navigate('/finish');
         }
         const fetchProblem = async () => {
@@ -52,7 +62,7 @@ const Problem = () => {
         if(room && room.room_state === 'in progress'){
             fetchProblem();
         }
-    },[reload]);
+    },[user, room, reload]);
     useEffect(() => {
         if(accepted){
             console.log('Code has been accepted');
@@ -60,7 +70,24 @@ const Problem = () => {
             socket.emit('game solve message', user);
         }
     }, [accepted]);
-    
+
+    useEffect(() => {
+            socket.on('user solved problem', (user) => {
+                console.log('user sovled a problem');
+                console.log(user);
+                const message = `${user.username} solved problem ${user.current_problem-1}`;
+                userDispatch({
+                    type:'UPDATE_USER',
+                    payload: user
+                });
+                console.log(message)
+                messageDispatch({
+                    type:'SET_MESSAGE',
+                    payload: message
+                });
+            });
+        }, []);
+
     useEffect(() => {
         socket.on('rec powerup', (powerup_name) => {
             console.log('received ' + powerup_name);

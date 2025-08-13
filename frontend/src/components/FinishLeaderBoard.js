@@ -3,43 +3,18 @@ import { RoomContext } from "../context/RoomContext";
 import Box from "./Box";
 import { UserContext } from "../context/UserContext";
 import { SocketContext } from "../context/SocketContext";
+import { useNavigate } from "react-router-dom";
+
 
 const FinishGameLeaderboard = () => {
     const {room, dispatch} = useContext(RoomContext);
     const {user} = useContext(UserContext);
     const [place, setPlace] = useState(null);
     const [placeString, setPlaceString] = useState(null);
-    // const user = {
-    //     _id: "64cde971132f5f5594c3da3b",
-    //     username: 'feqqweqf',
-    //     room_name: 'KyVNbX',
-    //     current_problem: 1,
-    //     score: 1000,
-    //     socket_id: 'qYnRCaU2zrdHom17AACF',
-    //     __v: 0
-    //   };
-    // const room = {
-    //     user_ids: [
-    //         {
-    //           _id: "64cde971132f5f5594c3da3b",
-    //           username: 'feqqweqf',
-    //           room_name: 'KyVNbX',
-    //           current_problem: 1,
-    //           score: 1000,
-    //           socket_id: 'qYnRCaU2zrdHom17AACF',
-    //           __v: 0
-    //         },
-    //         {
-    //           _id: "64cde977132f5f5594c3da44",
-    //           username: 'erqwerqw',
-    //           room_name: 'KyVNbX',
-    //           current_problem: 1,
-    //           score: 2500,
-    //           socket_id: 'yiP92cBwy6QUzgRpAACH',
-    //           __v: 0
-    //         }
-    //       ]
-    // };
+    const navigate = useNavigate();
+    if(!room || !room.room_state || room.room_state !== 'finished'){
+        navigate('/');
+    }
     const socket = useContext(SocketContext)
     useEffect(() => {
         socket.on('user solved problem', (user) => {

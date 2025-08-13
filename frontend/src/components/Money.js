@@ -8,13 +8,13 @@ const Money = ({errorFields}) => {
     const {room}  = useContext(RoomContext);
     const intervalRef = React.useRef(null);
     useEffect(() => {
-
+        if(!room) return;
         clearInterval(intervalRef.current);
 
         intervalRef.current = setInterval(() => {
         setMoney((prevCount) => prevCount + 1);
         }, Math.floor(1000*(room.num_players/place)));
-    }, [place])
+    }, [room, place])
 
     return (
         <div className="money-container">

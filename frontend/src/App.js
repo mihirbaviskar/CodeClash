@@ -30,7 +30,7 @@ function App() {
   const {room_actual, dispatch: roomDispatch} = useContext(RoomContext);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     const storedUserId = localStorage.getItem('userId');
     if(storedUserId){
       console.log("returning user: ", storedUserId);
@@ -46,17 +46,13 @@ function App() {
           type:'SET_ROOM',
           payload:room
         });
-        console.log("[SET INIT USER]: ", user_actual);
-        console.log("[SET INIT ROOM]", room_actual);
       });
       socket.on("reconnect-user-failure", (error) => {
         console.log("reconnect fail");
         localStorage.clear();
       });
     }
-    return () => {
-      // setLoading(false);
-    }
+      setLoading(false);
   }, []);
   useEffect(() => {
     console.log(socket.id);
