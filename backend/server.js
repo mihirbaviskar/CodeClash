@@ -12,7 +12,7 @@ require('dotenv').config();
 const isProduction = process.env.NODE_ENV === 'production';
 const allowedOrigins = isProduction ? ["http://www.codeclash.net"] : ["http://localhost:3000"];
 
-console.log(allowedOrigins);
+console.log("[ALLOWED ORIGINS]: ", allowedOrigins);
 const server = http.createServer(app);
 const io = socketio(server, {
     cors: {
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
     console.log('New WS Connection...');
     socket.on("send message", (message) => {
         console.log(message); // A new user has joined
-        console.log(socket.id);
+        console.log("Socket id: ", socket.id);
     })
     //diffs, size, username,
     socket.on("create room", async ({diffs, num_players, username}) => {
@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
             console.log("SOCKET BELONGS TO ROOM: " + socket.rooms);
             socket.emit('success create room', {user, room});
         }
-    })
+    });
     socket.on("join room", async ({username, room_name}) => {
         console.log(username + " is joining " + room_name);
         const {user, room} = await joinRoom({room_name, username});
@@ -88,13 +88,6 @@ io.on('connection', (socket) => {
         else{
             socket.emit('reconnect-user-failure');
         }
-        /*
-            check if user exists in db
-            if it does check if the room they belong to exists/ is in progress/ waiting
-            if so send room
-            map userid to socket.id
-            else send failure
-        */
     });
     socket.on('game solve message', (user) => {
         console.log("GOT GAME SOLVE MESSAGE");

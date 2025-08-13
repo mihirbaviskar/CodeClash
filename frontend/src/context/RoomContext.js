@@ -9,6 +9,10 @@ export const roomReducer = (state, action) => {
             // console.log("Setting up room: ")
             // console.log(action.payload);
             return action.payload
+        case 'SET_ROOM_STATE':
+            return {...state,
+                    room_state:action.payload
+            };
         case 'UPDATE_USERS':
             // console.log("Updating the users of the room: ")
             // console.log(action.payload);
