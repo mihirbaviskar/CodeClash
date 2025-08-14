@@ -261,8 +261,8 @@ const getRoomPopByName = async (req, res) => {
     console.log("Getting room by name");
     const {room_name} = req.params;
     console.log('Room name: ' + room_name);
-    const {_id} = req.body;
-    console.log('User: ' + _id);
+    const userId = req.headers['x-user-id'];
+    console.log('User: ' + userId);
     try{
         const room = await Room.findOne({room_name}).populate('user_ids').select('user_ids num_players room_state');;
         if(!room){
@@ -272,7 +272,7 @@ const getRoomPopByName = async (req, res) => {
         const userIds = room.user_ids.map(user => user._id.toString());
 
         // Check if the _id exists in the user_ids array
-        if (userIds.includes(_id)) {
+        if (userIds.includes(userId)) {
             return res.status(200).json(room);
         } else {
             return res.status(403).json({error: 'User ID does not exist in the room'});

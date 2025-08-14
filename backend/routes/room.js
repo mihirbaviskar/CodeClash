@@ -3,5 +3,5 @@ const { reqRoomByName, getRoomPopByName } = require('../controllers/roomControll
 const router = express.Router();
 
 router.get('/:room_name', reqRoomByName);
-router.post('/pop/:room_name', getRoomPopByName);
+router.get('/pop/:room_name', getRoomPopByName);
 module.exports = router;

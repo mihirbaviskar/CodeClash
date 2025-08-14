@@ -12,12 +12,11 @@ const WaitingRoom = () => {
     const navigate = useNavigate();
     useEffect(() => {
         const fetchUsers = async () => {
-            const submission = {_id: user._id};
             const fetchResponse = await fetch(`/api/rooms/pop/${user.room_name}`, {
-              method: 'POST',
-              body: JSON.stringify(submission),
+              method: 'GET',
               headers:{
-                  'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
+                  'X-User-Id': user._id
               }
             });
             const room = await fetchResponse.json();
