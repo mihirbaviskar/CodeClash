@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
 
 // pages & components
 import Problem from './pages/Problem';
@@ -7,7 +7,6 @@ import {io} from 'socket.io-client';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
-
 import { SocketContext } from './context/SocketContext';
 import { UserContext } from './context/UserContext';
 import {RoomContext} from './context/RoomContext';
@@ -91,7 +90,7 @@ function App() {
                       <LearnMore/>
                     }/>
                     <Route
-                    path = '/*'
+                    path = '*'
                     element={
                       <div>404 Not Found</div>
                     }/>
