@@ -6,7 +6,6 @@ import { RoomContext } from "../context/RoomContext";
 import Arcade from "../components/Arcade";
 import { SocketContext } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
-import { MessageContext } from "../context/MessageContext";
 
 
 const Problem = () => {
@@ -20,9 +19,8 @@ const Problem = () => {
         starter_code:""
     });
     const socket = useContext(SocketContext);
-    const {user, dispatch: userDispatch} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const {room, dispatch: roomDispatch} = useContext(RoomContext);
-    const {message, dispatch: messageDispatch} = useContext(MessageContext);
     const [accepted, setAccepted] = useState(false);
     const [reload, setReload] = useState(false);
     const [freeze, setFreeze] = useState(false);
@@ -44,7 +42,7 @@ const Problem = () => {
             navigate('/finish');
         }
         const fetchProblem = async () => {
-            console.log('fetching problem');
+            console.log('fetching problem: ' + user.current_problem);
             const response = await fetch('/api/problems/' + room.problem_ids[user.current_problem-1]);
             console.log('Here is the response');
             const json = await response.json()
@@ -52,8 +50,6 @@ const Problem = () => {
                 console.log("Json");
                 console.log(json);
                 await setProblem(json);
-                console.log("Problem");
-                console.log(problem);
             }
             else{
                 console.log("Error in use Effect");
@@ -62,31 +58,8 @@ const Problem = () => {
         if(room && room.room_state === 'in progress'){
             fetchProblem();
         }
-    },[user, room, reload]);
-    useEffect(() => {
-        if(accepted){
-            console.log('Code has been accepted');
-            console.log(user);
-            socket.emit('game solve message', user);
-        }
-    }, [accepted]);
+    },[user, reload]);
 
-    useEffect(() => {
-            socket.on('user solved problem', (user) => {
-                console.log('user sovled a problem');
-                console.log(user);
-                const message = `${user.username} solved problem ${user.current_problem-1}`;
-                userDispatch({
-                    type:'UPDATE_USER',
-                    payload: user
-                });
-                console.log(message)
-                messageDispatch({
-                    type:'SET_MESSAGE',
-                    payload: message
-                });
-            });
-        }, []);
 
     useEffect(() => {
         socket.on('rec powerup', (powerup_name) => {
