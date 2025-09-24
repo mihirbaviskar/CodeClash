@@ -4,7 +4,7 @@ import { SocketContext } from "../context/SocketContext";
 import LoadingSpinner from "./LoadingSpinner";
 
 
-const ResponseDisplay = ({ response, accepted, setAccepted, loading, freeze, bomb}) => {
+const ResponseDisplay = ({ response, accepted, setAccepted, loading, freeze, bomb, newScore}) => {
   const {user, dispatch: userDispatch, elapsedTime} = useContext(UserContext);
   const [runTimeScore, setRunTimeScore] = useState(0);
   const [memScore, setMemScore] = useState(0);
@@ -24,15 +24,8 @@ const ResponseDisplay = ({ response, accepted, setAccepted, loading, freeze, bom
       }
       let calc_solveTime = Math.floor(486.645/((0.00225299*elapsedTime)+1.62215))
       setSolveTimeScore(calc_solveTime);
-      let new_problem =  user.current_problem+1;
       let new_score = user.score+calc_runTimeScore+calc_memScore+calc_solveTime;
-      userDispatch({
-        type:'SET_CURRENT_PROBLEM_AND_SCORE',
-        payload: {
-          current_problem: new_problem,
-          score: new_score
-        }
-      })
+      newScore.current = new_score;
       // console.log('accepting in response display');
       setAccepted(true);
     }

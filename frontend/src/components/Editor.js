@@ -6,17 +6,19 @@ import { UserContext } from '../context/UserContext';
 import { RoomContext } from '../context/RoomContext';
 import restart_icon from '../images/restart.svg'
 import './Resize';
+import { SocketContext } from '../context/SocketContext';
 const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bomb}) => {
   // console.log(starter_code);
-  const specialChars = ["(", ")", "^", "/", ";", ":", "{", "}"];
+  const socket = useContext(SocketContext);
   const {room} =  useContext(RoomContext);
-  const {user} = useContext(UserContext);
+  const {user, dispatch: userDispatch} = useContext(UserContext);
   const [code, setCode] = useState(starter_code);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [response, setResponse] = useState(null);
   const [responseDisplay, setResponseDisplay] = useState(false);
   const [loading, setLoading] = useState(false);
   const editorRef = useRef(null);
+  const newScore = useRef(0);
   useEffect(() => {
     setCode(starter_code);
   }, [starter_code]);
@@ -30,6 +32,7 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
       editorRef.current.layout();
     }
   };
+  
   useEffect(() => {
 
     window.addEventListener('resize', handleResize);
@@ -47,6 +50,7 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
     console.log('onMount: the monaco instance:', monaco);
     options.automaticLayout = false;
   }
+
   function removeLines(str) {
     // Split the string into an array of lines
     const lines = str.split('\n');
@@ -69,10 +73,6 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
         console.log('yes editor ref exists');
         const model = editorRef.current.getModel();
         if (model) {
-          // console.log('model exists ab');
-          // const currentValue = model.getValue();
-          // console.log(currentValue);
-          // console.log(new_code);
           model.setValue(new_code);
         }
       }
@@ -91,9 +91,25 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
   const handleSubmit = async () => {
     if(accepted){
       // console.log("Accepted so going to next problem");
+      console.log("new problem is " + (user.current_problem+1));
+      // what is the purpose of setReload?
+      console.log("new score is " + newScore.current);
+      const updatedUser = {
+        ...user,
+        current_problem: user.current_problem + 1,
+        score: newScore.current
+      };
+      userDispatch({
+        type:'SET_CURRENT_PROBLEM_AND_SCORE',
+        payload: {
+          current_problem: updatedUser.current_problem,
+          score: updatedUser.score
+        }
+      });
+      console.log('Code has been accepted');
+      console.log(updatedUser);
+      socket.emit('game solve message', updatedUser);
       setResponse(null);
-      setReload(prev => !prev);
-      setAccepted(false);
     }
     else{
       console.log("Not accepted yet so submitting problem");
@@ -137,7 +153,7 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
 
   let button_name = "";
   if(accepted){
-    if(user.current_problem > room.num_problems){
+    if(user.current_problem >= room.num_problems){
       button_name = 'Finish'
     }
     else{
@@ -168,7 +184,7 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
         />
         <button className={`submit ${isButtonDisabled ? 'disabled': ''}`} disabled={isButtonDisabled} onClick={handleSubmit}>{button_name}</button>
       </div>
-      {(response || loading) && <ResponseDisplay response={response} accepted={accepted} setAccepted={setAccepted} loading={loading} freeze={freeze} bomb={bomb}/>}
+      {(response || loading) && <ResponseDisplay response={response} accepted={accepted} setAccepted={setAccepted} loading={loading} freeze={freeze} bomb={bomb} newScore={newScore}/>}
     </div>
   );
 }
@@ -176,8 +192,5 @@ const Editor = ({_id, starter_code, accepted, setAccepted, setReload, freeze, bo
 export default Editor;
 
 
-
-
-  // COMMENT FROM HERE FOR NEW MONACO EDITOR
 
 
